@@ -3,7 +3,7 @@ import { Shield, Clock, FileCheck, Award } from 'lucide-react';
 const benefits = [
   {
     icon: Award,
-    value: '8+',
+    value: '10+',
     label: 'лет опыта',
     description: 'Более 120 завершённых проектов в премиум-сегменте',
   },

@@ -21,11 +21,6 @@ const steps = [
     title: 'Реализация',
     description: 'Проводим ремонтные работы, осуществляем авторский надзор, контролируем качество',
   },
-  {
-    icon: Key,
-    title: 'Сдача объекта',
-    description: 'Финальная комплектация, уборка, передача объекта с полным комплектом документов',
-  },
 ];
 
 export function Process() {
@@ -38,7 +33,7 @@ export function Process() {
             Прозрачный и понятный процесс на каждом этапе от первого звонка до передачи ключей
           </p>
         </div>
-        <div className="grid md:grid-cols-5 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
