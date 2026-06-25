@@ -1,19 +1,14 @@
-import { Logo } from "./Logo";
+import { Logo } from './Logo';
 
 export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 bg-[#1F1F1F]/50 backdrop-blur-md z-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3 flex items-center justify-between gap-6">
+
         {/* Logo + Slogan */}
-        <a
-          href="#"
-          className="flex-shrink-0 flex flex-col gap-0.5"
-        >
-          <Logo className="w-full text-white h-auto" />
-          <span
-            className="text-[#C6A96B] text-[0.6rem] sm:text-[0.65rem] tracking-[0.18em] uppercase font-light leading-none"
-            style="text-align: center;"
-          >
+        <a href="#" className="flex-shrink-0 flex flex-col gap-0.5">
+          <Logo className="h-10 sm:h-12 lg:h-14 w-auto text-white" />
+          <span className="text-[#C6A96B] text-[0.6rem] sm:text-[0.65rem] tracking-[0.18em] uppercase font-light leading-none">
             От проекта до реализации
           </span>
         </a>
@@ -21,10 +16,10 @@ export function Header() {
         {/* Nav */}
         <nav className="hidden lg:flex items-center gap-8 xl:gap-10 flex-1 justify-center">
           {[
-            { label: "О нас", href: "#about" },
-            { label: "Услуги", href: "#services" },
-            { label: "Кейсы", href: "#portfolio" },
-            { label: "Блог", href: "#blog" },
+            { label: 'О нас', href: '#about' },
+            { label: 'Услуги', href: '#services' },
+            { label: 'Кейсы', href: '#portfolio' },
+            { label: 'Блог', href: '#blog' },
           ].map((link) => (
             <a
               key={link.href}
@@ -48,6 +43,7 @@ export function Header() {
             Консультация
           </button>
         </div>
+
       </div>
     </header>
   );
