@@ -121,10 +121,15 @@ export function Footer() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
 
             {/* Brand */}
-            <div>
-              <Logo className="h-10 w-auto text-white mb-2" />
-              <p className="text-[#C6A96B] text-xs tracking-[0.15em] uppercase mb-4">От проекта до реализации</p>
-              <p className="text-[#666] text-sm leading-relaxed">
+            <div className="text-center">
+              {/* Inline SVG logo as requested */}
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="проДЕКОР" className="w-[300px] max-w-full h-auto text-white mb-2 mx-auto -mt-2" viewBox="0 0 1299 550">
+                <g transform="translate(0,550) scale(0.1,-0.1)">
+                  <path d="M3530 7079 c-671 -55 -1349 -390 -1796 -890 -136 -152 -166 -196 -158 -233 18 -83 84 -212 104 -204 4 2 42 49 84 106 152 201 324 362 541 505 374 245 823 381 1375 417 235 15 333 0 475 -73 61 -31 102 -63 171 -132 78 -78 97 -104 142 -195 87 -178 124 -400 103 -628 -20 -216 -74 -362 -172 -460 -99 -99 -193 -131 -416 -139 l-153 -6 0 594 c0 327 4 611 9 632 9 37 28 68 92 154 29 38 31 44 20 72 -18 43 -57 55 -155 48 -161 -11 -298 -78 -432 -211 -114 -113 -150 -192 -106 -233 11 -10 33 -26 50 -35 57 -30 72 -70 72 -185 0 -57 4 -103 8 -103 5 0 43 -29 85 -65 65 -55 79 -73 97 -124 12 -33 28 -62 36 -65 7 -3 20 -19 29 -37 21 -39 13 -87 -18 -126 -13 -16 -29 -56 -36 -93 -42 -212 -148 -365 -326 -469 -91 -53 -96 -59 -93 -99 5 -64 -8 -63 583 -59 504 3 534 5 612 25 314 82 542 309 636 633 47 161 68 421 48 602 -63 572 -409 962 -936 1051 -197 33 -374 41 -575 25z"/>
+                </g>
+              </svg>
+              <p className="text-[#C6A96B] text-xs tracking-[0.15em] uppercase mb-4 text-center">От проекта до реализации</p>
+              <p className="text-[#E5E5E5] text-sm leading-relaxed text-center">
                 Дизайн интерьера и ремонт под ключ во Владимире и области
               </p>
             </div>
@@ -212,8 +217,8 @@ export function Footer() {
           {/* Bottom bar */}
           <div className="border-t border-[#242424] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-4">
-              <Logo className="h-7 w-auto text-[#333]" />
-              <span className="text-[#333] text-xs tracking-widest uppercase">От проекта до реализации</span>
+              <Logo className="h-8 w-auto text-white" />
+              <span className="text-[#BBB] text-xs tracking-widest uppercase">От проекта до реализации</span>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 text-xs text-[#444]">
               <span>© 2024 проДЕКОР. Все права защищены.</span>

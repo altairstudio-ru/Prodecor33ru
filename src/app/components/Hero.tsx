@@ -22,11 +22,11 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative min-h-screen flex items-center">
-        <div className="w-full max-w-[90rem] mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-24">
+        <div className="w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12 pt-20 sm:pt-28 pb-24">
           <div className="max-w-3xl space-y-8 sm:space-y-10">
 
             {/* Studio label — clean, no bullets */}
-            <p className="text-white/60 text-base sm:text-lg lg:text-xl font-light tracking-wide">
+            <p className="text-white/60 text-base sm:text-lg lg:text-xl font-light tracking-wide pt-0">
               Дизайн-студия полного цикла
             </p>
 
