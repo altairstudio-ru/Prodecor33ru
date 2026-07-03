@@ -31,5 +31,11 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
+  preview: {
+    port: 8000,
+    host: '127.0.0.1',
+    strictPort: true,
+  },
+
   assetsInclude: ['**/*.svg', '**/*.csv'],
 }))
