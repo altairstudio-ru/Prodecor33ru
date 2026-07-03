@@ -122,7 +122,7 @@ export function Footer() {
 
             {/* Brand */}
             <div className="text-center w-full">
-              <Logo className="w-[180px] sm:w-[220px] lg:w-[260px] h-auto text-white mb-1 mx-auto" />
+              <Logo className="w-[180px] sm:w-[220px] lg:w-[260px] h-11 sm:h-12 lg:h-14 text-white mb-1 mx-auto" />
               <p className="text-[#C6A96B] text-xs tracking-[0.15em] uppercase mb-4 text-center">От проекта до реализации</p>
               <p className="text-[#E5E5E5] text-sm leading-relaxed text-center">
                 Дизайн интерьера и ремонт под ключ во Владимире и области

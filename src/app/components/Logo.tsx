@@ -1,5 +1,5 @@
-// Crop: full wordmark vertically, keep all letter paths (incl. «про» on path 3192).
-const LOGO_VIEWBOX = '0 210 1299 185';
+// Includes wordmark + decorative flourish below «про».
+const LOGO_VIEWBOX = '0 195 1299 300';
 
 export function Logo({ className = '' }: { className?: string }) {
   return (
@@ -7,6 +7,7 @@ export function Logo({ className = '' }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox={LOGO_VIEWBOX}
       fill="currentColor"
+      preserveAspectRatio="xMidYMid meet"
       className={`block ${className}`.trim()}
       aria-label="проДЕКОР"
     >
