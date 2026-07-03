@@ -1,17 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Phone } from 'lucide-react';
 import { Logo } from './Logo';
+
+const PHONE_HREF = 'tel:+79004832050';
+
+const NAV_LINKS = [
+  { label: 'О нас', href: '#about' },
+  { label: 'Услуги', href: '#services' },
+  { label: 'Кейсы', href: '#portfolio' },
+  { label: 'Блог', href: '#blog' },
+];
 
 export function Header() {
   const [open, setOpen] = useState(false);
 
-  return (
-    <header className="fixed top-0 left-0 right-0 bg-[#1F1F1F]/50 backdrop-blur-md z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-6">
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
-        {/* Logo + Slogan */}
-        <div className="flex items-center gap-3">
+  const closeMenu = () => setOpen(false);
+
+  return (
+    <>
+    <header className="fixed top-0 left-0 right-0 bg-[#1F1F1F]/50 backdrop-blur-md z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+
+        {/* Mobile: ☰ | Logo | 📞 */}
+        <div className="flex items-center justify-between gap-3 lg:hidden">
           <button
-            className="lg:hidden p-2 rounded-md text-white/90 hover:text-white"
+            className="flex-shrink-0 p-2 -ml-2 rounded-md text-white/90 hover:text-white"
             onClick={() => setOpen(true)}
             aria-label="Открыть меню"
           >
@@ -22,76 +45,109 @@ export function Header() {
             </svg>
           </button>
 
+          <a href="#" className="flex-1 min-w-0 flex justify-center">
+            <Logo className="w-[140px] sm:w-[160px] h-9 sm:h-10 max-w-full text-white" />
+          </a>
+
+          <a
+            href={PHONE_HREF}
+            className="flex-shrink-0 p-2 -mr-2 text-[#5BA3F5] hover:text-[#7DBCFF] transition-colors"
+            aria-label="Позвонить: +7 (900) 483-20-50"
+          >
+            <Phone className="w-5 h-5" strokeWidth={1.75} />
+          </a>
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden lg:flex items-center justify-between gap-6">
           <a href="#" className="flex-shrink-0 flex flex-col items-center gap-0">
-            <Logo className="w-[180px] sm:w-[220px] lg:w-[260px] h-11 sm:h-12 lg:h-14 max-w-full text-white" />
-            <span className="text-[#C6A96B] text-[0.6rem] sm:text-[0.65rem] tracking-[0.18em] uppercase font-light text-center leading-none">
+            <Logo className="w-[260px] h-14 max-w-full text-white" />
+            <span className="text-[#C6A96B] text-[0.65rem] tracking-[0.18em] uppercase font-light text-center leading-none">
               От проекта до реализации
             </span>
           </a>
-        </div>
 
-        {/* Nav */}
-        <nav className="hidden lg:flex items-center gap-8 xl:gap-10 flex-1 justify-center">
-          {[
-            { label: 'О нас', href: '#about' },
-            { label: 'Услуги', href: '#services' },
-            { label: 'Кейсы', href: '#portfolio' },
-            { label: 'Блог', href: '#blog' },
-          ].map((link) => (
+          <nav className="flex items-center gap-8 xl:gap-10 flex-1 justify-center">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-white/75 hover:text-white transition-colors tracking-wide whitespace-nowrap"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
             <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-white/75 hover:text-white transition-colors tracking-wide whitespace-nowrap"
+              href={PHONE_HREF}
+              className="text-[#5BA3F5] hover:text-[#7DBCFF] transition-colors text-sm font-medium tracking-wide whitespace-nowrap pr-2"
             >
-              {link.label}
+              +7 (900) 483-20-50
             </a>
-          ))}
-        </nav>
-
-        {/* Phone + CTA */}
-        <div className="flex-shrink-0 flex flex-col items-end gap-1.5">
-          <a
-            href="tel:+79004832050"
-            className="text-[#5BA3F5] hover:text-[#7DBCFF] transition-colors text-sm font-medium tracking-wide whitespace-nowrap pr-2"
-          >
-            +7 (900) 483-20-50
-          </a>
-          <button className="px-5 py-2 border border-white/30 text-white rounded-sm hover:bg-white/10 hover:border-white/50 transition-all text-xs tracking-widest uppercase backdrop-blur-sm whitespace-nowrap">
-            Консультация
-          </button>
+            <button className="px-5 py-2 border border-white/30 text-white rounded-sm hover:bg-white/10 hover:border-white/50 transition-all text-xs tracking-widest uppercase backdrop-blur-sm whitespace-nowrap">
+              Консультация
+            </button>
+          </div>
         </div>
 
       </div>
-
-      {/* Mobile slide-in menu */}
-      {open && (
-        <>
-          <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setOpen(false)} />
-          <aside className="fixed top-0 left-0 z-50 h-full w-80 bg-[#1F1F1F] p-6">
-            <div className="flex items-center justify-between mb-6">
-              <Logo className="w-[180px] h-auto text-white mx-auto" />
-              <button className="text-white" onClick={() => setOpen(false)} aria-label="Закрыть меню">✕</button>
-            </div>
-            <p className="text-[#C6A96B] text-sm tracking-widest uppercase text-center mb-6">От проекта до реализации</p>
-            <nav className="flex flex-col gap-4">
-              {[
-                { label: 'О нас', href: '#about' },
-                { label: 'Услуги', href: '#services' },
-                { label: 'Кейсы', href: '#portfolio' },
-                { label: 'Блог', href: '#blog' },
-              ].map((link) => (
-                <a key={link.href} href={link.href} className="text-white/85 text-lg py-2">
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-            <div className="mt-8">
-              <a href="tel:+79004832050" className="text-[#5BA3F5] block mb-4">+7 (900) 483-20-50</a>
-              <button className="w-full bg-[#C6A96B] text-black py-3 rounded-sm">Консультация</button>
-            </div>
-          </aside>
-        </>
-      )}
     </header>
+
+    {open && createPortal(
+      <div className="fixed inset-0 z-[100] lg:hidden">
+        <div
+          className="absolute inset-0 bg-black/70"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+        <aside className="relative z-10 flex h-full w-full flex-col bg-[#1F1F1F] p-6">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <Logo className="h-auto w-[180px] flex-shrink-0 text-white" />
+            <button
+              type="button"
+              className="flex-shrink-0 p-2 text-2xl leading-none text-white/80 hover:text-white"
+              onClick={closeMenu}
+              aria-label="Закрыть меню"
+            >
+              ✕
+            </button>
+          </div>
+
+          <p className="mb-8 text-center text-sm uppercase tracking-widest text-[#C6A96B]">
+            От проекта до реализации
+          </p>
+
+          <nav className="flex flex-col gap-1">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="rounded-sm py-3 text-lg text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-auto space-y-4 border-t border-white/10 pt-8">
+            <a href={PHONE_HREF} className="block text-lg text-[#5BA3F5]">
+              +7 (900) 483-20-50
+            </a>
+            <button
+              type="button"
+              className="w-full rounded-sm bg-[#C6A96B] py-3 text-sm font-medium uppercase tracking-widest text-black"
+              onClick={closeMenu}
+            >
+              Консультация
+            </button>
+          </div>
+        </aside>
+      </div>,
+      document.body,
+    )}
+    </>
   );
 }

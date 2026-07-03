@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import heroImage from '../photo-1678762200388-51e11225d4de.jpg';
 
 export function Hero() {
   return (
@@ -6,9 +7,11 @@ export function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1678762200388-51e11225d4de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1920"
+          src={heroImage}
           alt="Premium Interior"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
           style={{ objectPosition: '50% 45%' }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#2A2520]/20 via-transparent to-[#1F1F1F]/10" />
