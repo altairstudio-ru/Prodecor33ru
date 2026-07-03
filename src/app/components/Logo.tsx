@@ -1,10 +1,13 @@
+// Crop: full wordmark vertically, keep all letter paths (incl. «про» on path 3192).
+const LOGO_VIEWBOX = '0 210 1299 185';
+
 export function Logo({ className = '' }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1299 947"
+      viewBox={LOGO_VIEWBOX}
       fill="currentColor"
-      className={className}
+      className={`block ${className}`.trim()}
       aria-label="проДЕКОР"
     >
       <g transform="translate(0,947) scale(0.1,-0.1)">
