@@ -2,7 +2,7 @@ export function Logo({ className = '' }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1299 550"
+      viewBox="0 235 1299 145"
       fill="currentColor"
       className={className}
       aria-label="проДЕКОР"

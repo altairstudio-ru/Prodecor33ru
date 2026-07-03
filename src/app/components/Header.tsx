@@ -23,7 +23,7 @@ export function Header() {
           </button>
 
           <a href="#" className="flex-shrink-0 flex flex-col gap-0.5">
-            <Logo className="w-[180px] sm:w-[220px] lg:w-[260px] h-auto max-w-full -mt-2 text-white" />
+            <Logo className="w-[180px] sm:w-[220px] lg:w-[260px] h-auto max-w-full text-white" />
             <span className="text-[#C6A96B] text-[0.6rem] sm:text-[0.65rem] tracking-[0.18em] uppercase font-light text-center leading-none">
               От проекта до реализации
             </span>
