@@ -157,11 +157,6 @@ export function Footer() {
                   <Phone className="w-4 h-4 flex-shrink-0" />
                   +7 (900) 483-20-50
                 </a>
-                <a href="tel:+79040367340"
-                  className="flex items-center gap-2.5 text-[#999] hover:text-[#C6A96B] transition-colors">
-                  <Phone className="w-4 h-4 flex-shrink-0" />
-                  +7 (904) 036-73-40
-                </a>
                 <a href="mailto:info@prodecor33.ru"
                   className="flex items-center gap-2.5 text-[#999] hover:text-[#C6A96B] transition-colors">
                   <Mail className="w-4 h-4 flex-shrink-0" />

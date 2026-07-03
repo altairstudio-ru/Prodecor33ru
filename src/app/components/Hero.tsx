@@ -35,7 +35,8 @@ export function Hero() {
 
             {/* H1 */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.08] text-white tracking-[-0.02em] font-semibold">
-              Дизайн и ремонт под ключ<br />
+              Дизайн и ремонт<br />
+              под ключ<br />
               во Владимире и области
             </h1>
 

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import newbuildingImage from '../../PgnVvI0r50f8CQqJCTkSw2UpY7D2l8EQHn5Br29-KT1t2HXqpoChTRu04mQb0Z9a_dVhzsF_WXOgsA79QqM5RS7k.jpg';
 
 const projects = [
   {
     id: 1,
     title: 'Квартира в новостройке',
     area: '85 м²',
-    year: '2024',
+    year: '2026',
     serviceType: 'Дизайн интерьера + ремонт под ключ',
-    image: 'https://images.unsplash.com/photo-1600210491305-7396500b5b31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxwcmVtaXVtJTIwaW50ZXJpb3IlMjBkZXNpZ24lMjBiZWRyb29tJTIwbmV1dHJhbCUyMG1hdGVyaWFsc3xlbnwxfHx8fDE3Nzk1MDEyNTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: newbuildingImage,
     client: 'Молодая семья с двумя детьми',
     task: 'Создать уютное и функциональное пространство с продуманными системами хранения',
     solution: 'Открытая планировка, нейтральные оттенки, натуральные материалы, встроенная мебель',
@@ -19,7 +20,7 @@ const projects = [
     id: 2,
     title: 'Загородный дом',
     area: '220 м²',
-    year: '2023',
+    year: '2025',
     serviceType: 'Дизайн интерьера + комплектация',
     image: 'https://images.unsplash.com/photo-1666003449012-61951d621555?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbW9kZXJuJTIwa2l0Y2hlbiUyMG1hcmJsZSUyMHdvb2R8ZW58MXx8fHwxNzc5NTAxMjU5fDA&ixlib=rb-4.1.0&q=80&w=1080',
     client: 'Семья с детьми',
@@ -31,7 +32,7 @@ const projects = [
     id: 3,
     title: 'Пентхаус в центре',
     area: '140 м²',
-    year: '2023',
+    year: '2024',
     serviceType: 'Ремонт под ключ',
     image: 'https://images.unsplash.com/photo-1564078516393-cf04bd966897?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtaW5pbWFsaXN0JTIwaW50ZXJpb3IlMjBsaXZpbmclMjByb29tJTIwd2FybSUyMG5hdHVyYWwlMjBsaWdodHxlbnwxfHx8fDE3Nzk1MDEyNTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
     client: 'Бизнесмен',
