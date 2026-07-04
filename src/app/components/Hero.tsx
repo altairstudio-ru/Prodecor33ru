@@ -26,20 +26,30 @@ export function Hero() {
       {/* Content */}
       <div className="relative min-h-screen flex items-center">
         <div className="w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-12 pt-20 sm:pt-28 pb-24">
-          <div className="max-w-3xl space-y-8 sm:space-y-10">
 
-            {/* Studio label — clean, no bullets */}
-            <p className="text-white/60 text-base sm:text-lg lg:text-xl font-light tracking-wide pt-0">
-              Дизайн-студия полного цикла
-            </p>
+          {/* Studio label — clean, no bullets */}
+          <p className="text-white/60 text-base sm:text-lg lg:text-xl font-light tracking-wide pt-0 max-w-3xl">
+            Дизайн-студия полного цикла
+          </p>
 
-            {/* H1 */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.08] text-white tracking-[-0.02em] font-semibold">
+          {/* H1 — full width */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.08] text-white tracking-[-0.02em] font-semibold w-full mt-6 sm:mt-8 mb-8 sm:mb-10">
+            {/* Mobile version (≤ sm) */}
+            <span className="sm:hidden">
               Дизайн и ремонт<br />
               под ключ<br />
-              во Владимире и области
-            </h1>
+              Во Владимире<br />
+              и области
+            </span>
+            {/* Desktop version (≥ sm) */}
+            <span className="hidden sm:inline">
+              Дизайн и ремонт под ключ<br />
+              Во Владимире и области
+            </span>
+          </h1>
 
+          {/* Description + CTA — constrained */}
+          <div className="max-w-3xl space-y-8 sm:space-y-10">
             <p className="text-sm sm:text-base lg:text-lg text-white/60 leading-[1.7] max-w-lg font-normal">
               Полный комплекс работ от проекта до финальной отделки. Фиксированные сроки, прозрачная смета, гарантия качества.
             </p>
@@ -54,8 +64,8 @@ export function Hero() {
                 Смотреть портфолио
               </button>
             </div>
-
           </div>
+
         </div>
       </div>
 
