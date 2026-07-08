@@ -42,23 +42,25 @@ ${data.source ? `<b>Источник:</b> ${data.source}` : ''}
   `.trim();
 
   try {
-    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    // Use Vercel API route to avoid CORS issues
+    const response = await fetch('/api/telegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: message,
-        parse_mode: 'HTML',
+        name: data.name.trim(),
+        phone: data.phone,
+        projectType: data.projectType,
+        source: data.source,
       }),
     });
 
     const result = await response.json();
 
-    if (result.ok) {
-      return { success: true, message: 'Заявка успешно отправлена!' };
+    if (result.success) {
+      return { success: true, message: result.message };
     } else {
       console.error('[Telegram] API error:', result);
-      return { success: false, message: 'Ошибка отправки. Попробуйте позже.' };
+      return { success: false, message: result.message || 'Ошибка отправки. Попробуйте позже.' };
     }
   } catch (error) {
     console.error('[Telegram] Network error:', error);
