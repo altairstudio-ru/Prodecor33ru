@@ -1,10 +1,5 @@
 {
   "buildCommand": "vite build --base /",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "functions": {
-    "api/telegram.ts": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "framework": "vite"
 }
