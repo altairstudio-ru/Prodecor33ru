@@ -12,7 +12,11 @@ const NAV_LINKS = [
   { label: 'Блог', href: '#blog' },
 ];
 
-export function Header() {
+interface HeaderProps {
+  onConsultationClick: () => void;
+}
+
+export function Header({ onConsultationClick }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -86,7 +90,10 @@ export function Header() {
             >
               +7 (900) 483-20-50
             </a>
-            <button className="px-5 py-2 border border-white/30 text-white rounded-sm hover:bg-white/10 hover:border-white/50 transition-all text-xs tracking-widest uppercase backdrop-blur-sm whitespace-nowrap">
+            <button
+              onClick={onConsultationClick}
+              className="px-5 py-2 border border-white/30 text-white rounded-sm hover:bg-white/10 hover:border-white/50 transition-all text-xs tracking-widest uppercase backdrop-blur-sm whitespace-nowrap"
+            >
               Консультация
             </button>
           </div>
@@ -138,8 +145,8 @@ export function Header() {
             </a>
             <button
               type="button"
+              onClick={onConsultationClick}
               className="w-full rounded-sm bg-[#C6A96B] py-3 text-sm font-medium uppercase tracking-widest text-black"
-              onClick={closeMenu}
             >
               Консультация
             </button>

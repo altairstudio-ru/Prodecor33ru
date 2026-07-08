@@ -1,7 +1,11 @@
 import { ArrowRight } from 'lucide-react';
 import heroImage from '../photo-1678762200388-51e11225d4de.jpg';
 
-export function Hero() {
+interface HeroProps {
+  onConsultationClick: () => void;
+}
+
+export function Hero({ onConsultationClick }: HeroProps) {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#1F1F1F]">
       {/* Background Image */}
@@ -56,7 +60,10 @@ export function Hero() {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-4 pt-2">
-              <button className="group px-8 sm:px-11 py-3.5 sm:py-4 bg-[#C6A96B]/95 hover:bg-[#C6A96B] text-white rounded-sm transition-all duration-300 inline-flex items-center gap-3 shadow-[0_8px_30px_rgb(198,169,107,0.15)] hover:shadow-[0_8px_40px_rgb(198,169,107,0.25)]">
+              <button
+                onClick={onConsultationClick}
+                className="group px-8 sm:px-11 py-3.5 sm:py-4 bg-[#C6A96B]/95 hover:bg-[#C6A96B] text-white rounded-sm transition-all duration-300 inline-flex items-center gap-3 shadow-[0_8px_30px_rgb(198,169,107,0.15)] hover:shadow-[0_8px_40px_rgb(198,169,107,107,0.25)]"
+              >
                 <span className="tracking-[0.05em] text-sm font-light">Получить консультацию</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
               </button>
