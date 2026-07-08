@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Logo } from './Logo';
 import { Phone, Mail, MapPin, Navigation } from 'lucide-react';
+import { formatPhone, isValidPhone } from '../utils/phoneMask';
+import { sendToTelegram } from '../utils/telegram';
+import { toast } from 'sonner';
 
 function VkIcon() {
   return (
@@ -64,11 +67,47 @@ const socials = [
 export function Footer() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePhoneChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhone(e.target.value);
+    setPhone(formatted);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (phone.trim()) setSubmitted(true);
+
+    if (!name.trim()) {
+      toast.error('Пожалуйста, введите ваше имя');
+      return;
+    }
+
+    if (!isValidPhone(phone)) {
+      toast.error('Пожалуйста, введите корректный номер телефона');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await sendToTelegram({
+        name: name.trim(),
+        phone,
+        source: 'Футер — обратный звонок',
+      });
+
+      if (result.success) {
+        toast.success(result.message);
+        setName('');
+        setPhone('');
+      } else {
+        toast.error(result.message);
+      }
+    } catch {
+      toast.error('Произошла ошибка. Попробуйте позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -82,35 +121,31 @@ export function Footer() {
             <p className="text-[#888] text-sm">Перезвоним в течение 30 минут в рабочее время</p>
           </div>
           <div className="w-full lg:w-auto lg:min-w-[480px]">
-            {submitted ? (
-              <p className="text-[#C6A96B] text-center py-4 font-medium">
-                Заявка принята. Свяжемся с вами в ближайшее время!
-              </p>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="flex-1 bg-[#2A2A2A] border border-[#3A3A3A] text-white placeholder-[#555] rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[#C6A96B] transition-colors"
-                />
-                <input
-                  type="tel"
-                  placeholder="Телефон *"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                  className="flex-1 bg-[#2A2A2A] border border-[#3A3A3A] text-white placeholder-[#555] rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[#C6A96B] transition-colors"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#C6A96B] hover:bg-[#B39960] text-white rounded-sm px-7 py-3 text-sm tracking-wide transition-colors whitespace-nowrap"
-                >
-                  Обратный звонок
-                </button>
-              </form>
-            )}
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                placeholder="Ваше имя"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="flex-1 bg-[#2A2A2A] border border-[#3A3A3A] text-white placeholder-[#555] rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[#C6A96B] transition-colors"
+                disabled={isSubmitting}
+              />
+              <input
+                type="tel"
+                placeholder="Телефон *"
+                value={phone}
+                onChange={handlePhoneChange}
+                className="flex-1 bg-[#2A2A2A] border border-[#3A3A3A] text-white placeholder-[#555] rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[#C6A96B] transition-colors"
+                disabled={isSubmitting}
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-[#C6A96B] hover:bg-[#B39960] text-white rounded-sm px-7 py-3 text-sm tracking-wide transition-colors whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Отправка...' : 'Обратный звонок'}
+              </button>
+            </form>
           </div>
         </div>
       </div>

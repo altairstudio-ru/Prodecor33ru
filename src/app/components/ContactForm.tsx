@@ -1,20 +1,60 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { formatPhone, isValidPhone } from '../utils/phoneMask';
+import { sendToTelegram } from '../utils/telegram';
+import { toast } from 'sonner';
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    projectType: 'design',
-  });
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [projectType, setProjectType] = useState('design');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePhoneChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhone(e.target.value);
+    setPhone(formatted);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    if (!name.trim()) {
+      toast.error('Пожалуйста, введите ваше имя');
+      return;
+    }
+
+    if (!isValidPhone(phone)) {
+      toast.error('Пожалуйста, введите корректный номер телефона');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await sendToTelegram({
+        name: name.trim(),
+        phone,
+        projectType,
+        source: 'Форма на странице',
+      });
+
+      if (result.success) {
+        toast.success(result.message);
+        setName('');
+        setPhone('');
+        setProjectType('design');
+      } else {
+        toast.error(result.message);
+      }
+    } catch {
+      toast.error('Произошла ошибка. Попробуйте позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <section className="py-20 px-6 bg-white">
+    <section id="contact" className="py-20 px-6 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="bg-[#F5F3EF] rounded-2xl p-12">
           <div className="text-center mb-12">
@@ -28,31 +68,31 @@ export function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-[#1F1F1F] mb-2">
+                <label htmlFor="contact-name" className="block text-sm font-medium text-[#1F1F1F] mb-2">
                   Ваше имя
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors"
+                  id="contact-name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors text-[#1F1F1F]"
                   placeholder="Иван Петров"
-                  required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-[#1F1F1F] mb-2">
+                <label htmlFor="contact-phone" className="block text-sm font-medium text-[#1F1F1F] mb-2">
                   Телефон
                 </label>
                 <input
                   type="tel"
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors"
+                  id="contact-phone"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  className="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors text-[#1F1F1F]"
                   placeholder="+7 (___) ___-__-__"
-                  required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -68,9 +108,10 @@ export function ContactForm() {
                   <button
                     key={option.value}
                     type="button"
-                    onClick={() => setFormData({ ...formData, projectType: option.value })}
+                    onClick={() => setProjectType(option.value)}
+                    disabled={isSubmitting}
                     className={`px-5 py-3.5 rounded-lg transition-all ${
-                      formData.projectType === option.value
+                      projectType === option.value
                         ? 'bg-[#C6A96B] border-2 border-[#C6A96B] text-white font-medium shadow-sm'
                         : 'bg-transparent border border-[#D1D1D1] text-[#1F1F1F] hover:border-[#C6A96B] hover:bg-white/50'
                     }`}
@@ -83,10 +124,20 @@ export function ContactForm() {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full md:w-auto px-10 py-4 bg-[#C6A96B] text-white rounded-lg hover:bg-[#B39960] transition-colors font-medium inline-flex items-center justify-center gap-2 shadow-sm"
+                disabled={isSubmitting}
+                className="w-full md:w-auto px-10 py-4 bg-[#C6A96B] text-white rounded-lg hover:bg-[#B39960] transition-colors font-medium inline-flex items-center justify-center gap-2 shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Получить консультацию
-                <ArrowRight className="w-5 h-5" />
+                {isSubmitting ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Отправка...
+                  </>
+                ) : (
+                  <>
+                    Получить консультацию
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
               </button>
             </div>
             <p className="text-xs text-[#8A8A8A] text-center pt-2">

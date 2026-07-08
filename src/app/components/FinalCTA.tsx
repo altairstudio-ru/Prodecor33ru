@@ -1,6 +1,10 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Phone } from 'lucide-react';
 
-export function FinalCTA() {
+interface FinalCTAProps {
+  onConsultationClick: () => void;
+}
+
+export function FinalCTA({ onConsultationClick }: FinalCTAProps) {
   return (
     <section className="py-20 px-6 bg-[#2A2A2A]">
       <div className="max-w-4xl mx-auto text-center">
@@ -11,13 +15,20 @@ export function FinalCTA() {
           Оставьте заявку, и мы свяжемся с вами в течение часа, чтобы обсудить детали, ответить на все вопросы и назначить встречу для замера
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 py-4 bg-[#C6A96B] text-white rounded-lg hover:bg-[#B39960] transition-colors font-medium inline-flex items-center justify-center gap-2">
+          <button
+            onClick={onConsultationClick}
+            className="px-8 py-4 bg-[#C6A96B] text-white rounded-lg hover:bg-[#B39960] transition-colors font-medium inline-flex items-center justify-center gap-2"
+          >
             Оставить заявку
             <ArrowRight className="w-5 h-5" />
           </button>
-          <button className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-[#2A2A2A] transition-colors font-medium">
+          <a
+            href="tel:+79004832050"
+            className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-[#2A2A2A] transition-colors font-medium inline-flex items-center justify-center gap-2"
+          >
+            <Phone className="w-5 h-5" />
             Позвонить нам
-          </button>
+          </a>
         </div>
       </div>
     </section>
