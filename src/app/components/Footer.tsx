@@ -239,7 +239,7 @@ export function Footer() {
 
           </div>
 
-          {/* Bottom bar - Altair Studio credit on left */}
+          {/* Bottom bar - Altair Studio credit on left, copyright + links on right */}
           <div className="border-t border-[#242424] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
               <a
@@ -252,6 +252,7 @@ export function Footer() {
               </a>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 text-xs text-[#888]">
+              <span>© 2026 проДЕКОР. Все права защищены.</span>
               <div className="flex gap-4">
                 <a href="#" className="hover:text-[#C6A96B] transition-colors">Политика конфиденциальности</a>
                 <a href="#" className="hover:text-[#C6A96B] transition-colors">Договор оферты</a>
