@@ -46,9 +46,9 @@ const socials = [
   },
   {
     label: 'Telegram',
-    href: '#',
+    href: 'https://t.me/SerJ_aNT33',
     icon: <TelegramIcon />,
-    active: false,
+    active: true,
   },
   {
     label: 'Max',

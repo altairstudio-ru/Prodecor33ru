@@ -6,6 +6,13 @@ interface HeroProps {
 }
 
 export function Hero({ onConsultationClick }: HeroProps) {
+  const scrollToPortfolio = () => {
+    const element = document.getElementById('portfolio');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#1F1F1F]">
       {/* Background Image */}
@@ -62,12 +69,15 @@ export function Hero({ onConsultationClick }: HeroProps) {
             <div className="flex flex-wrap gap-4 pt-2">
               <button
                 onClick={onConsultationClick}
-                className="group px-8 sm:px-11 py-3.5 sm:py-4 bg-[#C6A96B]/95 hover:bg-[#C6A96B] text-white rounded-sm transition-all duration-300 inline-flex items-center gap-3 shadow-[0_8px_30px_rgb(198,169,107,0.15)] hover:shadow-[0_8px_40px_rgb(198,169,107,107,0.25)]"
+                className="group px-8 sm:px-11 py-3.5 sm:py-4 bg-[#C6A96B]/95 hover:bg-[#C6A96B] text-white rounded-sm transition-all duration-300 inline-flex items-center gap-3 shadow-[0_8px_30px_rgb(198,169,107,0.15)] hover:shadow-[0_8px_40px_rgb(198,169,107,0.25)]"
               >
                 <span className="tracking-[0.05em] text-sm font-light">Получить консультацию</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
               </button>
-              <button className="px-8 sm:px-11 py-3.5 sm:py-4 border border-white/25 hover:border-white/40 text-white rounded-sm hover:bg-white/[0.03] transition-all duration-300 tracking-[0.05em] text-sm font-light">
+              <button
+                onClick={scrollToPortfolio}
+                className="px-8 sm:px-11 py-3.5 sm:py-4 border border-white/25 hover:border-white/40 text-white rounded-sm hover:bg-white/[0.03] transition-all duration-300 tracking-[0.05em] text-sm font-light"
+              >
                 Смотреть портфолио
               </button>
             </div>
