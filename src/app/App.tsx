@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { ConsultationModal } from './components/ConsultationModal';
 import { useConsultationModal } from './hooks/useConsultationModal';
 import { Toaster } from 'sonner';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const { isOpen, openModal, closeModal } = useConsultationModal();
@@ -39,6 +40,7 @@ export default function App() {
           },
         }}
       />
+      <Analytics />
     </div>
   );
 }
