@@ -3,6 +3,10 @@ const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '';
 const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || '';
 const TELEGRAM_TEST_CHAT_ID = import.meta.env.VITE_TELEGRAM_TEST_CHAT_ID || '';
 
+// Channel toggles
+const TELEGRAM_ENABLED = import.meta.env.VITE_TELEGRAM_ENABLED === 'true';
+const EMAIL_ENABLED = import.meta.env.VITE_EMAIL_ENABLED === 'true';
+
 export interface FormData {
   name: string;
   phone: string;
@@ -18,7 +22,6 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
 };
 
 function getTestChatId(): string | null {
-  // Check URL parameter: ?debug_chat=1 or ?test_chat=1
   if (typeof window !== 'undefined') {
     const params = new URLSearchParams(window.location.search);
     if (params.get('debug_chat') === '1' || params.get('test_chat') === '1') {
@@ -29,12 +32,6 @@ function getTestChatId(): string | null {
 }
 
 export async function sendToTelegram(data: FormData): Promise<{ success: boolean; message: string }> {
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-    console.warn('[Telegram] Bot token or chat ID not configured. Message not sent.');
-    console.log('[Telegram] Would send:', data);
-    return { success: true, message: 'Демо-режим: данные выведены в консоль' };
-  }
-
   const projectTypeLabel = data.projectType
     ? PROJECT_TYPE_LABELS[data.projectType] || data.projectType
     : 'Не указан';
@@ -50,34 +47,72 @@ ${data.source ? `<b>Источник:</b> ${data.source}` : ''}
 <i>Дата: ${new Date().toLocaleString('ru-RU')}</i>
   `.trim();
 
-  try {
-    const testChatId = getTestChatId();
-    const body: Record<string, unknown> = {
-      name: data.name.trim(),
-      phone: data.phone,
-      projectType: data.projectType,
-      source: data.source,
-    };
-    if (testChatId) {
-      body.test_chat_id = testChatId;
-    }
+  const results: { success: boolean; message: string }[] = [];
 
-    const response = await fetch('/api/telegram', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      return { success: true, message: result.message };
+  // Send to Telegram if enabled
+  if (TELEGRAM_ENABLED) {
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+      console.warn('[Telegram] Bot token or chat ID not configured');
+      results.push({ success: false, message: 'Telegram not configured' });
     } else {
-      console.error('[Telegram] API error:', result);
-      return { success: false, message: result.message || 'Ошибка отправки. Попробуйте позже.' };
+      try {
+        const testChatId = getTestChatId();
+        const body: Record<string, unknown> = {
+          name: data.name.trim(),
+          phone: data.phone,
+          projectType: data.projectType,
+          source: data.source,
+        };
+        if (testChatId) {
+          body.test_chat_id = testChatId;
+        }
+
+        const response = await fetch('/api/telegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+
+        const result = await response.json();
+        results.push({ success: result.success, message: result.message });
+      } catch (error) {
+        console.error('[Telegram] Network error:', error);
+        results.push({ success: false, message: 'Telegram network error' });
+      }
     }
-  } catch (error) {
-    console.error('[Telegram] Network error:', error);
-    return { success: false, message: 'Ошибка сети. Проверьте подключение.' };
   }
+
+  // Send to Email if enabled
+  if (EMAIL_ENABLED) {
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.name.trim(),
+          phone: data.phone,
+          projectType: data.projectType,
+          source: data.source,
+        }),
+      });
+
+      const result = await response.json();
+      results.push({ success: result.success, message: result.message });
+    } catch (error) {
+      console.error('[Email] Network error:', error);
+      results.push({ success: false, message: 'Email network error' });
+    }
+  }
+
+  // If neither channel is enabled, use demo mode
+  if (!TELEGRAM_ENABLED && !EMAIL_ENABLED) {
+    console.warn('[Form] No notification channels enabled. Demo mode.');
+    return { success: true, message: 'Демо-режим: каналы уведомлений отключены' };
+  }
+
+  // Return combined result
+  const anySuccess = results.some(r => r.success);
+  const messages = results.map(r => r.message).join('; ');
+  
+  return { success: anySuccess, message: anySuccess ? 'Заявка успешно отправлена!' : messages };
 }
