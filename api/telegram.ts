@@ -15,19 +15,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
-  const { name, phone, projectType, source } = req.body as {
+  const { name, phone, projectType, source, test_chat_id } = req.body as {
     name: string;
     phone: string;
     projectType?: string;
     source?: string;
+    test_chat_id?: string;
   };
 
   if (!name?.trim() || !phone?.trim()) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
   }
 
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-    console.warn('[Telegram] Bot token or chat ID not configured');
+  if (!TELEGRAM_BOT_TOKEN) {
+    console.warn('[Telegram] Bot token not configured');
     return res.status(500).json({ success: false, message: 'Telegram not configured' });
   }
 
@@ -46,6 +47,13 @@ ${source ? `<b>Источник:</b> ${source}` : ''}
 <i>Дата: ${new Date().toLocaleString('ru-RU')}</i>
   `.trim();
 
+  const chatId = test_chat_id || TELEGRAM_CHAT_ID;
+
+  if (!chatId) {
+    console.warn('[Telegram] Chat ID not configured');
+    return res.status(500).json({ success: false, message: 'Chat ID not configured' });
+  }
+
   try {
     const response = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
@@ -53,7 +61,7 @@ ${source ? `<b>Источник:</b> ${source}` : ''}
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
+          chat_id: chatId,
           text: message,
           parse_mode: 'HTML',
         }),
