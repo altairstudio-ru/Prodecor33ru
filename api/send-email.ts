@@ -1,13 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465');
-const SMTP_SECURE = process.env.SMTP_SECURE !== 'false';
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM || 'info@prodecor33.ru';
-const SMTP_TO = process.env.SMTP_TO || 'info@prodecor33.ru';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+const EMAIL_TO = process.env.EMAIL_TO || 'info@prodecor33.ru';
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   design: 'Дизайн',
@@ -16,20 +12,7 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
   supervision: 'Надзор',
 };
 
-function createTransporter() {
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    throw new Error('SMTP not configured');
-  }
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_SECURE,
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
-    },
-  });
-}
+const resend = new Resend(RESEND_API_KEY);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -48,9 +31,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
   }
 
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    console.warn('[Email] SMTP not configured');
-    return res.status(500).json({ success: false, message: 'Email not configured' });
+  if (!RESEND_API_KEY) {
+    console.warn('[Email] RESEND_API_KEY not configured');
+    return res.status(500).json({ success: false, message: 'Email service not configured' });
   }
 
   const projectTypeLabel = projectType
@@ -122,23 +105,40 @@ ${source ? `Источник: ${source}` : ''}
 </html>
   `.trim();
 
-  // Use test_email if provided, otherwise default SMTP_TO
-  const toEmail = test_email || SMTP_TO;
+  const toEmail = test_email || EMAIL_TO;
 
   try {
-    const transporter = createTransporter();
+    console.log('[Email] Sending via Resend to:', toEmail);
     
-    await transporter.sendMail({
-      from: SMTP_FROM,
-      to: toEmail,
+    const { data, error } = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: [toEmail],
       subject,
-      text,
       html,
+      text,
     });
 
-    return res.status(200).json({ success: true, message: `Заявка успешно отправлена на ${toEmail}!` });
-  } catch (error) {
+    if (error) {
+      console.error('[Email] Resend error:', error);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Ошибка отправки на почту. Попробуйте позже.',
+        error: error.message 
+      });
+    }
+
+    console.log('[Email] Sent via Resend:', data?.id);
+    return res.status(200).json({ 
+      success: true, 
+      message: `Заявка успешно отправлена на ${toEmail}!`,
+      id: data?.id 
+    });
+  } catch (error: any) {
     console.error('[Email] Error:', error);
-    return res.status(500).json({ success: false, message: 'Ошибка отправки на почту. Попробуйте позже.' });
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Ошибка отправки на почту. Попробуйте позже.',
+      error: error.message 
+    });
   }
 }
