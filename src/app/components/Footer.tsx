@@ -46,7 +46,7 @@ const socials = [
   },
   {
     label: 'Telegram',
-    href: 'https://t.me/SerJ_aNT33',
+    href: 'https://t.me/ProDecor_33',
     icon: <TelegramIcon />,
     active: true,
   },
