@@ -38,4 +38,31 @@ export default defineConfig(({ mode }) => ({
   },
 
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  build: {
+    // Split into smaller chunks to avoid HTTP/2 issues on Vercel
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router'],
+          'vendor-radix': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-accordion',
+          ],
+          'vendor-ui': ['lucide-react', 'clsx', 'tailwind-merge', 'class-variance-authority'],
+          'vendor-forms': ['react-hook-form'],
+          'vendor-animation': ['motion'],
+          'vendor-charts': ['recharts'],
+          'vendor-carousel': ['embla-carousel-react'],
+        },
+      },
+    },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
+  },
 }))
