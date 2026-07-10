@@ -17,7 +17,6 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig(({ mode }) => ({
-  // GitHub Pages deployment base path
   base: mode === 'development' ? '/' : '/Prodecor33ru/',
 
   plugins: [
@@ -40,7 +39,6 @@ export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.svg', '**/*.csv'],
 
   build: {
-    // Split into smaller chunks to avoid HTTP/2 issues on Vercel
     rollupOptions: {
       output: {
         manualChunks: {
@@ -62,7 +60,6 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
   },
 }))
