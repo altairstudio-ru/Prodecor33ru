@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+const EMAIL_FROM = process.env.EMAIL_FROM || 'info@prodecor33.ru';
 const EMAIL_TO = process.env.EMAIL_TO || 'info@prodecor33.ru';
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (!RESEND_API_KEY) {
-    console.warn('[Email] RESEND_API_KEY not configured');
+    console.error('[Email] RESEND_API_KEY not configured');
     return res.status(500).json({ success: false, message: 'Email service not configured' });
   }
 
@@ -108,7 +108,7 @@ ${source ? `Источник: ${source}` : ''}
   const toEmail = test_email || EMAIL_TO;
 
   try {
-    console.log('[Email] Sending via Resend to:', toEmail);
+    console.log('[Email] Sending via Resend:', { to: toEmail, from: EMAIL_FROM, keyPrefix: RESEND_API_KEY?.substring(0, 10) });
     
     const { data, error } = await resend.emails.send({
       from: EMAIL_FROM,
@@ -119,26 +119,28 @@ ${source ? `Источник: ${source}` : ''}
     });
 
     if (error) {
-      console.error('[Email] Resend error:', error);
+      console.error('[Email] Resend error:', JSON.stringify(error));
       return res.status(500).json({ 
         success: false, 
-        message: 'Ошибка отправки на почту. Попробуйте позже.',
-        error: error.message 
+        message: 'Ошибка отправки на почту.',
+        error: error.message,
+        code: error.name
       });
     }
 
     console.log('[Email] Sent via Resend:', data?.id);
     return res.status(200).json({ 
       success: true, 
-      message: `Заявка успешно отправлена на ${toEmail}!`,
+      message: `Заявка успешно отправлена! (тестовый email: ${toEmail})`,
       id: data?.id 
     });
   } catch (error: any) {
     console.error('[Email] Error:', error);
     return res.status(500).json({ 
       success: false, 
-      message: 'Ошибка отправки на почту. Попробуйте позже.',
-      error: error.message 
+      message: 'Ошибка отправки на почту.',
+      error: error.message,
+      stack: error.stack
     });
   }
 }
