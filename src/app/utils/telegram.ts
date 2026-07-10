@@ -7,6 +7,9 @@ const TELEGRAM_TEST_CHAT_ID = import.meta.env.VITE_TELEGRAM_TEST_CHAT_ID || '';
 const TELEGRAM_ENABLED = import.meta.env.VITE_TELEGRAM_ENABLED === 'true';
 const EMAIL_ENABLED = import.meta.env.VITE_EMAIL_ENABLED === 'true';
 
+// Test email override
+const EMAIL_TEST_ADDRESS = import.meta.env.VITE_EMAIL_TEST_ADDRESS || '';
+
 export interface FormData {
   name: string;
   phone: string;
@@ -26,6 +29,16 @@ function getTestChatId(): string | null {
     const params = new URLSearchParams(window.location.search);
     if (params.get('debug_chat') === '1' || params.get('test_chat') === '1') {
       return TELEGRAM_TEST_CHAT_ID || null;
+    }
+  }
+  return null;
+}
+
+function getTestEmail(): string | null {
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('test_email') === '1') {
+      return EMAIL_TEST_ADDRESS || null;
     }
   }
   return null;
@@ -85,15 +98,21 @@ ${data.source ? `<b>Источник:</b> ${data.source}` : ''}
   // Send to Email if enabled
   if (EMAIL_ENABLED) {
     try {
+      const testEmail = getTestEmail();
+      const body: Record<string, unknown> = {
+        name: data.name.trim(),
+        phone: data.phone,
+        projectType: data.projectType,
+        source: data.source,
+      };
+      if (testEmail) {
+        body.test_email = testEmail;
+      }
+
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.name.trim(),
-          phone: data.phone,
-          projectType: data.projectType,
-          source: data.source,
-        }),
+        body: JSON.stringify(body),
       });
 
       const result = await response.json();

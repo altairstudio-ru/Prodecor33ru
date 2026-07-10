@@ -36,11 +36,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
-  const { name, phone, projectType, source } = req.body as {
+  const { name, phone, projectType, source, test_email } = req.body as {
     name: string;
     phone: string;
     projectType?: string;
     source?: string;
+    test_email?: string;
   };
 
   if (!name?.trim() || !phone?.trim()) {
@@ -121,18 +122,21 @@ ${source ? `Источник: ${source}` : ''}
 </html>
   `.trim();
 
+  // Use test_email if provided, otherwise default SMTP_TO
+  const toEmail = test_email || SMTP_TO;
+
   try {
     const transporter = createTransporter();
     
     await transporter.sendMail({
       from: SMTP_FROM,
-      to: SMTP_TO,
+      to: toEmail,
       subject,
       text,
       html,
     });
 
-    return res.status(200).json({ success: true, message: 'Заявка успешно отправлена на почту!' });
+    return res.status(200).json({ success: true, message: `Заявка успешно отправлена на ${toEmail}!` });
   } catch (error) {
     console.error('[Email] Error:', error);
     return res.status(500).json({ success: false, message: 'Ошибка отправки на почту. Попробуйте позже.' });
