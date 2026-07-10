@@ -49,7 +49,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 Тип проекта: ${projectTypeLabel}
 ${source ? `Источник: ${source}` : ''}
 
-Дата: ${new Date().toLocaleString('ru-RU')}
+Дата: ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}
   `.trim();
 
   const html = `
@@ -94,7 +94,7 @@ ${source ? `Источник: ${source}` : ''}
       ` : ''}
       <div class="field">
         <span class="label">Дата:</span>
-        <span class="value">${new Date().toLocaleString('ru-RU')}</span>
+        <span class="value">${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}</span>
       </div>
     </div>
     <div class="footer">
