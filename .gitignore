@@ -3,3 +3,10 @@
 *.zip
 .env*
 node_modules
+dist/
+.backup/
+debug.cjs
+check-console.cjs
+check-console2.cjs
+check-network.cjs
+verify.cjs
