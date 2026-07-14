@@ -2,3 +2,4 @@
 Архив.zip
 *.zip
 .env*
+node_modules

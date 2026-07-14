@@ -48,8 +48,8 @@
 index.html
     └── src/main.tsx          # Точка входа, монтирование React
             └── src/app/App.tsx   # Композиция секций лендинга
-                    ├── Header          (фиксированная шапка)
-                    ├── Hero            (первый экран)
+                    ├── Header              (фиксированная шапка)
+                    ├── Hero                (первый экран)
                     ├── Services
                     ├── Process
                     ├── ContactForm
@@ -57,7 +57,11 @@ index.html
                     ├── PortfolioNew
                     ├── Testimonials
                     ├── FinalCTA
-                    └── Footer
+                    ├── Footer
+                    ├── ConsultationModal   (портальное модальное окно)
+                    ├── Toaster             (sonner-уведомления)
+                    ├── Analytics           (Vercel Analytics)
+                    └── SpeedInsights       (Vercel Speed Insights)
 ```
 
 **Принципы:**
@@ -81,26 +85,32 @@ Prodecor33ru/
 │   └── deploy.yml              # CI/CD → GitHub Pages
 ├── src/
 │   ├── main.tsx
-│   ├── app/
-│   │   ├── App.tsx             # Корневой layout
-│   │   └── components/
-│   │       ├── Header.tsx
-│   │       ├── Hero.tsx
-│   │       ├── Services.tsx
-│   │       ├── Process.tsx
-│   │       ├── ContactForm.tsx
-│   │       ├── Trust.tsx
-│   │       ├── PortfolioNew.tsx   # Актуальный портфолио-блок
-│   │       ├── Portfolio.tsx      # Старая версия, не используется в App
-│   │       ├── Testimonials.tsx
-│   │       ├── FinalCTA.tsx
-│   │       ├── Footer.tsx
-│   │       ├── Logo.tsx           # SVG-логотип (inline)
-│   │       ├── FAQ.tsx            # Готов, но не подключён в App
-│   │       ├── figma/
-│   │       │   └── ImageWithFallback.tsx
-│   │       └── ui/                # Переиспользуемые UI-компоненты (shadcn)
-│   └── styles/
+│       ├── app/
+│       │   ├── App.tsx             # Корневой layout
+│       │   ├── components/
+│       │   │   ├── Header.tsx
+│       │   │   ├── Hero.tsx
+│       │   │   ├── Services.tsx
+│       │   │   ├── Process.tsx
+│       │   │   ├── ContactForm.tsx
+│       │   │   ├── Trust.tsx
+│       │   │   ├── PortfolioNew.tsx   # Актуальный портфолио-блок
+│       │   │   ├── Portfolio.tsx      # Старая версия, не используется в App
+│       │   │   ├── Testimonials.tsx
+│       │   │   ├── FinalCTA.tsx
+│       │   │   ├── Footer.tsx
+│       │   │   ├── Logo.tsx           # SVG-логотип (inline)
+│       │   │   ├── FAQ.tsx            # Готов, но не подключён в App
+│       │   │   ├── ConsultationModal.tsx  # Модальное окно с формой
+│       │   │   ├── figma/
+│       │   │   │   └── ImageWithFallback.tsx
+│       │   │   └── ui/                # Переиспользуемые UI-компоненты (shadcn)
+│       │   ├── hooks/
+│       │   │   └── useConsultationModal.ts
+│       │   └── utils/
+│       │       ├── telegram.ts        # Клиент отправки в Telegram + email
+│       │       └── phoneMask.ts       # Маска и валидация телефона
+│       └── styles/
 │       ├── index.css              # Импорты стилей
 │       ├── tailwind.css
 │       ├── theme.css              # CSS-переменные, цвета бренда
@@ -129,7 +139,9 @@ Prodecor33ru/
 | 7 | `PortfolioNew` | Кейсы с раскрывающимися карточками | `#portfolio` | `PortfolioNew.tsx` |
 | 8 | `Testimonials` | 3 отзыва клиентов | — | `Testimonials.tsx` |
 | 9 | `FinalCTA` | Финальный призыв к действию | — | `FinalCTA.tsx` |
-| 10 | `Footer` | Контакты, соцсети, навигация, копирайт | — | `Footer.tsx` |
+| 10 | `Footer` | Контакты, соцсети, навигация, копирайт; мини-форма обратного звонка | — | `Footer.tsx` |
+| — | `ConsultationModal` | Портальное модальное окно с формой (Telegram-бот) | — | `ConsultationModal.tsx` |
+| — | `Toaster` | Sonner-уведомления об успехе/ошибке отправки | — | `App.tsx` |
 
 ### Навигация в шапке
 
@@ -146,12 +158,32 @@ Prodecor33ru/
 
 - Телефон: `+7 (900) 483-20-50` (`tel:+79004832050`)
 - ВКонтакте: https://vk.ru/prodecor_33
-- Telegram, Instagram, Max — заглушки (`href: '#'`)
+- Telegram: https://t.me/ProDecor_33
+- Instagram, Max — заглушки (`href: '#'`, помечены «скоро»)
+- Email: info@prodecor33.ru
+- Адрес: г. Владимир, ул. Луначарского, 23
 
 ### Неиспользуемые компоненты
 
 - `Portfolio.tsx` — предыдущая версия портфолио, заменена на `PortfolioNew.tsx`.
 - `FAQ.tsx` — готовый блок FAQ с `id="faq"`, но не подключён в `App.tsx`.
+
+### Vercel Serverless Functions
+
+```
+api/
+├── telegram.ts      # Отправка заявки в Telegram-бот
+└── send-email.ts    # Отправка заявки на email через Resend
+```
+
+Клиентская часть вызывает эти API через `src/app/utils/telegram.ts`.
+Форма отправляет данные в Telegram (канал включён по умолчанию) и опционально на email (канал выключен, `VITE_EMAIL_ENABLED=false`).
+
+### Модальное окно консультации
+
+`ConsultationModal.tsx` — портальное модальное окно, вызываемое из CTA-кнопок в Header, Hero и FinalCTA.
+Управляется через хук `useConsultationModal.ts`. Содержит форму с полями имя, телефон, тип проекта.
+Отправка — через тот же Telegram-бот. При успехе тост и закрытие модалки.
 
 ---
 
@@ -270,8 +302,8 @@ URL: `https://altairstudio-ru.github.io/Prodecor33ru/`
 
 ## Что доделать
 
-- [ ] Подключить отправку формы (`ContactForm.tsx` сейчас только `console.log`)
-- [ ] Привязать кнопки CTA к форме или внешнему сервису (Telegram-бот, CRM, email)
+- [x] Подключить отправку формы — Telegram (+ опционально email через Resend), тосты, валидация
+- [x] Привязать кнопки CTA к форме — `ConsultationModal` (Header, Hero, FinalCTA)
 - [ ] Реализовать секции `#about` и `#blog` или убрать из навигации
 - [ ] Подключить `FAQ.tsx` или удалить
 - [ ] Заменить Unsplash-заглушки на реальные фото проектов
