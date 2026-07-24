@@ -8,7 +8,7 @@
   - [x] Протестирована отправка — успешно (id: `b5d3a22a-0a66-461e-95ee-5fd885e30721`)
   - [x] Почищены старые SMTP-переменные из Vercel
   - [x] Почищен `.env`
-  - [x] Каналы переключены: `VITE_TELEGRAM_ENABLED=true`, `VITE_EMAIL_ENABLED=true`
+  - [x] Каналы переключены: `VITE_EMAIL_ENABLED=true`, `VITE_TELEGRAM_ENABLED=false`
 
 ### SEO
 - [x] Убрать `noindex, nofollow` из `index.html`
@@ -22,6 +22,7 @@
 ## ❌ Осталось
 
 ### Навигация и контент
+- [ ] Сгенерировать favicon для сайта
 - [ ] Реализовать секцию `#about` или убрать из навигации
 - [ ] Реализовать секцию `#blog` или убрать из навигации
 - [ ] Подключить `FAQ.tsx` в `App.tsx`

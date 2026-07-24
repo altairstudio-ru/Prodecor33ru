@@ -4,8 +4,8 @@
 
 Исходный макет: [Figma — prodecor33.ru](https://www.figma.com/design/lEIA09jSULNAbEPCFWO0U2/prodecor33.ru)
 
-**Продакшн (Vercel):** https://prodecor33ru-sage.vercel.app  
-**GitHub Pages (после push в `main`):** https://altairstudio-ru.github.io/Prodecor33ru/
+**Продакшн (Vercel):** https://prodecor33.ru  
+**GitHub Pages:** https://altairstudio-ru.github.io/Prodecor33ru/ (автодеплой при push в `main`)
 
 ---
 
@@ -177,7 +177,7 @@ api/
 ```
 
 Клиентская часть вызывает эти API через `src/app/utils/telegram.ts`.
-Форма отправляет данные в Telegram (канал включён по умолчанию) и опционально на email (канал выключен, `VITE_EMAIL_ENABLED=false`).
+Форма отправляет данные на email (канал включён, `VITE_EMAIL_ENABLED=true`) и опционально в Telegram (`VITE_TELEGRAM_ENABLED=false`).
 
 ### Модальное окно консультации
 
