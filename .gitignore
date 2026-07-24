@@ -10,3 +10,7 @@ check-console.cjs
 check-console2.cjs
 check-network.cjs
 verify.cjs
+.agents/
+.claude/
+config/
+skills-lock.json
