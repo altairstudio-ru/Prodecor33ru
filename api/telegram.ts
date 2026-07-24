@@ -1,7 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const TELEGRAM_BOT_TOKEN = process.env.VITE_TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.VITE_TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_CHAT_IDS = (process.env.VITE_TELEGRAM_CHAT_IDS || process.env.TELEGRAM_CHAT_IDS || process.env.VITE_TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID || '')
+  .split(',')
+  .map(id => id.trim())
+  .filter(Boolean);
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   design: 'Дизайн',
@@ -9,6 +12,28 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
   full: 'Под ключ',
   supervision: 'Надзор',
 };
+
+async function sendToChat(botToken: string, chatId: string, message: string): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const response = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML',
+        }),
+      }
+    );
+    const result = await response.json();
+    if (result.ok) return { ok: true };
+    return { ok: false, error: result.description || 'Unknown error' };
+  } catch (error: any) {
+    return { ok: false, error: error.message };
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -47,37 +72,23 @@ ${source ? `<b>Источник:</b> ${source}` : ''}
 <i>Дата: ${new Date().toLocaleString('ru-RU')}</i>
   `.trim();
 
-  const chatId = test_chat_id || TELEGRAM_CHAT_ID;
+  const chatIds = test_chat_id ? [test_chat_id] : TELEGRAM_CHAT_IDS;
 
-  if (!chatId) {
-    console.warn('[Telegram] Chat ID not configured');
+  if (chatIds.length === 0) {
+    console.warn('[Telegram] No chat IDs configured');
     return res.status(500).json({ success: false, message: 'Chat ID not configured' });
   }
 
-  try {
-    const response = await fetch(
-      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: 'HTML',
-        }),
-      }
-    );
+  const results = await Promise.all(
+    chatIds.map(chatId => sendToChat(TELEGRAM_BOT_TOKEN, chatId, message))
+  );
 
-    const result = await response.json();
+  const successCount = results.filter(r => r.ok).length;
 
-    if (result.ok) {
-      return res.status(200).json({ success: true, message: 'Заявка успешно отправлена!' });
-    } else {
-      console.error('[Telegram] API error:', result);
-      return res.status(500).json({ success: false, message: 'Ошибка отправки. Попробуйте позже.' });
-    }
-  } catch (error) {
-    console.error('[Telegram] Network error:', error);
-    return res.status(500).json({ success: false, message: 'Ошибка сети. Проверьте подключение.' });
+  if (successCount > 0) {
+    return res.status(200).json({ success: true, message: 'Заявка успешно отправлена!' });
   }
+
+  console.error('[Telegram] All sends failed:', results);
+  return res.status(500).json({ success: false, message: 'Ошибка отправки. Попробуйте позже.' });
 }
