@@ -14,3 +14,9 @@ verify.cjs
 .claude/
 config/
 skills-lock.json
+
+# SEO internal docs
+ROADMAP_SEO.md
+SEO_REPORT_*.md
+seo-semantics-*.xlsx
+seo-data/

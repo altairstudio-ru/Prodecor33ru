@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { label: 'О нас', href: '#about' },
   { label: 'Услуги', href: '#services' },
   { label: 'Кейсы', href: '#portfolio' },
-  { label: 'Блог', href: '#blog' },
 ];
 
 interface HeaderProps {
