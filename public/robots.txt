@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# SEO-отчёты клиенту — не для индексации (GitHub Pages)
+Disallow: /Prodecor33ru/seo-reports/
+
 Sitemap: https://prodecor33.ru/sitemap.xml

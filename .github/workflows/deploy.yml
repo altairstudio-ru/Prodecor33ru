@@ -39,6 +39,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Copy SEO reports
+        run: |
+          mkdir -p dist/seo-reports
+          cp -r seo-reports/reports/* dist/seo-reports/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

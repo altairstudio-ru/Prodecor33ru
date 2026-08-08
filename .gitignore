@@ -16,7 +16,6 @@ config/
 skills-lock.json
 
 # SEO internal docs
-ROADMAP_SEO.md
-SEO_REPORT_*.md
+seo-reports/generator/node_modules/
 seo-semantics-*.xlsx
 seo-data/

@@ -1,0 +1,15 @@
+{
+  "name": "seo-report-generator",
+  "version": "1.0.0",
+  "description": "Генератор SEO-отчётов и экспорт семантики",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.js",
+    "export-xlsx": "node export-xlsx.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
