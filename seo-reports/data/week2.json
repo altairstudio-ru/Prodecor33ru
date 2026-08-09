@@ -13,15 +13,17 @@
     { "task": "Twitter Card мета-теги", "clientTask": "Настройка отображения ссылок в соцсетях", "result": "summary_large_image + title/desc/image", "clientResult": "Ссылки на сайт корректно отображаются в соцсетях и мессенджерах", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
     { "task": "Убрать #blog из футера", "clientTask": "Обновлена навигация сайта", "result": "Удалён пункт из Footer.tsx", "clientResult": "Навигация приведена в соответствие с текущими разделами", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
     { "task": "Кластеризация семантики", "clientTask": "Группировка ключевых запросов", "result": "13 кластеров по целевым страницам", "clientResult": "Ключевые запросы сгруппированы по страницам сайта, которым они соответствуют", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
-    { "task": "Экспорт семантики в Excel", "clientTask": "Подготовка списка запросов для согласования", "result": "seo-semantics-09-08-2026.xlsx (6 листов)", "clientResult": "Полный список ключевых запросов передан в удобном для работы формате", "date": "09-08-2026", "status": "done", "responsibility": "both" }
+    { "task": "Экспорт семантики в Excel", "clientTask": "Подготовка списка запросов для согласования", "result": "seo-semantics-09-08-2026.xlsx (6 листов)", "clientResult": "Полный список ключевых запросов передан в удобном для работы формате", "date": "09-08-2026", "status": "done", "responsibility": "both" },
+    { "task": "H1 дублирование (унификация)", "clientTask": "Проверка заголовков страницы", "result": "Один уникальный H1", "clientResult": "Заголовок страницы приведён в порядок для поисковых систем", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "Alt-тексты (Hero, Portfolio)", "clientTask": "Описание изображений для поиска", "result": "Русские SEO-описания изображений", "clientResult": "Изображения сайта теперь понятны поисковым системам", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "FAQ подключение в App.tsx", "clientTask": "Подключение блока вопросов и ответов", "result": "Секция FAQ на сайте", "clientResult": "Блок вопросов и ответов появился на сайте", "date": "09-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "FAQPage JSON-LD", "clientTask": "Настройка блока вопросов для поисковых систем", "result": "Разметка FAQPage", "clientResult": "Вопросы и ответы сайта корректно отображаются в поиске", "date": "09-08-2026", "status": "done", "responsibility": "executor" }
   ],
   "inProgress": [],
   "nextWeek": [
-    { "task": "H1 дублирование (унификация)", "clientTask": "Проверка и унификация заголовков страницы", "due": "18-08-2026", "status": "todo", "responsibility": "executor" },
-    { "task": "Alt-тексты (Hero, Portfolio)", "clientTask": "Описание изображений для поиска", "due": "18-08-2026", "status": "todo", "responsibility": "executor" },
-    { "task": "FAQ подключение в App.tsx", "clientTask": "Подключение блока вопросов и ответов", "due": "19-08-2026", "status": "todo", "responsibility": "executor" },
-    { "task": "FAQPage JSON-LD", "clientTask": "Настройка блока вопросов для поисковых систем", "due": "19-08-2026", "status": "todo", "responsibility": "executor" },
-    { "task": "Замена фото портфолио (реальные)", "clientTask": "Подготовка реальных фотографий проектов", "due": "21-08-2026", "status": "todo", "responsibility": "customer" }
+    { "task": "Замена фото портфолио (реальные)", "clientTask": "Подготовка реальных фотографий проектов", "due": "21-08-2026", "status": "todo", "responsibility": "customer" },
+    { "task": "JSON-LD LocalBusiness (geo, openingHours)", "clientTask": "Дополнение информации о компании для поиска", "due": "22-08-2026", "status": "todo", "responsibility": "executor" },
+    { "task": "План структуры нового сайта", "clientTask": "Подготовка новой структуры сайта", "due": "23-08-2026", "status": "todo", "responsibility": "both" }
   ],
   "metrics": {
     "Техническое состояние сайта": 100,
