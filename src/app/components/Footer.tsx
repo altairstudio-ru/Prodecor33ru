@@ -173,7 +173,6 @@ export function Footer() {
                   { label: 'Услуги', href: '#services' },
                   { label: 'Кейсы', href: '#portfolio' },
                   { label: 'Как работаем', href: '#process' },
-                  { label: 'Блог', href: '#blog' },
                 ].map((link) => (
                   <a key={link.href} href={link.href}
                     className="block text-[#999] hover:text-[#C6A96B] text-sm transition-colors">
