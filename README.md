@@ -5,7 +5,7 @@
 Исходный макет: [Figma — prodecor33.ru](https://www.figma.com/design/lEIA09jSULNAbEPCFWO0U2/prodecor33.ru)
 
 **Продакшн (Vercel):** https://prodecor33.ru  
-**GitHub Pages:** https://altairstudio-ru.github.io/Prodecor33ru/ (автодеплой при push в `main`)
+**SEO-отчёты:** https://prodecor33.ru/seo-reports/
 
 ---
 
@@ -288,13 +288,13 @@ npx vercel deploy --prod
 
 Конфиг: `.github/workflows/deploy.yml` — автодеплой при push в `main`.
 
-В `vite.config.ts` для production задан base path:
+В `vite.config.ts` base path задан для GitHub Pages, но Vercel перекрывает его через `vercel.json`:
 
 ```ts
 base: mode === 'development' ? '/' : '/Prodecor33ru/',
 ```
 
-URL: `https://altairstudio-ru.github.io/Prodecor33ru/`
+URL: `https://prodecor33.ru/` (Vercel собирает с `--base /`)
 
 > **Важно:** base path на Vercel (`/`) и GitHub Pages (`/Prodecor33ru/`) **различаются**. Не меняйте `vite.config.ts` без учёта целевого хостинга, либо используйте отдельные build-команды (как в `vercel.json`).
 

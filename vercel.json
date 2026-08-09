@@ -1,5 +1,13 @@
 {
-  "buildCommand": "vite build --base /",
+  "buildCommand": "vite build --base / && mkdir -p dist/seo-reports && cp -r seo-reports/reports/* dist/seo-reports/",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "prodecor33ru.vercel.app" }],
+      "destination": "https://prodecor33.ru/:path*",
+      "permanent": true
+    }
+  ]
 }
