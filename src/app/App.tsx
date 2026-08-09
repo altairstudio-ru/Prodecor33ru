@@ -4,6 +4,7 @@ import { Services } from './components/Services';
 import { Process } from './components/Process';
 import { ContactForm } from './components/ContactForm';
 import { Trust } from './components/Trust';
+import { FAQ } from './components/FAQ';
 import { PortfolioNew } from './components/PortfolioNew';
 import { Testimonials } from './components/Testimonials';
 import { FinalCTA } from './components/FinalCTA';
@@ -25,6 +26,7 @@ export default function App() {
       <Process />
       <ContactForm />
       <Trust />
+      <FAQ />
       <PortfolioNew />
       <Testimonials />
       <FinalCTA onConsultationClick={openModal} />

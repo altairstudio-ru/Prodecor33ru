@@ -19,7 +19,7 @@ export function Hero({ onConsultationClick }: HeroProps) {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Premium Interior"
+          alt="Дизайн интерьера гостиной — студия проДЕКОР, Владимир"
           className="w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
