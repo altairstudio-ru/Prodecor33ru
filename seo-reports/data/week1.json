@@ -8,30 +8,29 @@
     "date": "10-08-2026"
   },
   "done": [
-    { "task": "Сбор семантики (конкуренты)", "result": "Топ-10 конкурентов, ~100 запросов", "date": "08-08-2026", "status": "done" },
-    { "task": "Анализ конкурентов", "result": "Сильные/слабые стороны, рекомендации", "date": "08-08-2026", "status": "done" },
-    { "task": "Формирование SEO-стратегии", "result": "План на 3 месяца (ROADMAP_SEO.md)", "date": "08-08-2026", "status": "done" },
-    { "task": "План миграции на Astro", "result": "Архитектура, этапы, сроки", "date": "08-08-2026", "status": "done" },
-    { "task": "robots.txt", "result": "Создан, деплоен", "date": "08-08-2026", "status": "done" },
-    { "task": "sitemap.xml", "result": "Создан, деплоен", "date": "08-08-2026", "status": "done" },
-    { "task": "Canonical URL", "result": "Добавлен в index.html", "date": "08-08-2026", "status": "done" },
-    { "task": "Убрать #blog из навигации", "result": "Удалён пункт из Header.tsx", "date": "08-08-2026", "status": "done" },
-    { "task": "SEO-аудит (Lighthouse)", "result": "100/100", "date": "08-08-2026", "status": "done" },
-    { "task": "Коммит и деплой", "result": "69624d44 → прод", "date": "08-08-2026", "status": "done" }
+    { "task": "Сбор семантики (конкуренты)", "clientTask": "Анализ конкурентов и ключевых запросов", "result": "Топ-10 конкурентов, ~100 запросов", "clientResult": "Собран список ключевых запросов и изучены конкуренты", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "Анализ конкурентов", "clientTask": "Изучены сильные стороны конкурентов", "result": "Сильные/слабые стороны, рекомендации", "clientResult": "Выявлены преимущества конкурентов и точки роста для сайта", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "Формирование SEO-стратегии", "clientTask": "Разработана стратегия продвижения", "result": "План на 3 месяца (ROADMAP_SEO.md)", "clientResult": "Составлен план продвижения на 3 месяца", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "План миграции на Astro", "clientTask": "Разработан план развития сайта", "result": "Архитектура, этапы, сроки", "clientResult": "Спланирована новая структура сайта и этапы её запуска", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "robots.txt", "clientTask": "Настройка доступа поисковых систем", "result": "Создан, деплоен", "clientResult": "Сайт корректно доступен поисковым системам", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "sitemap.xml", "clientTask": "Создана карта сайта", "result": "Создан, деплоен", "clientResult": "Создана и опубликована карта сайта", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "Canonical URL", "clientTask": "Устранены дубли страниц", "result": "Добавлен в index.html", "clientResult": "Исключены дубли контента на страницах сайта", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "Убрать #blog из навигации", "clientTask": "Обновлена навигация сайта", "result": "Удалён пункт из Header.tsx", "clientResult": "Навигация приведена в соответствие с текущими разделами", "date": "08-08-2026", "status": "done", "responsibility": "executor" },
+    { "task": "SEO-аудит (Lighthouse)", "clientTask": "Технический аудит сайта", "result": "100/100", "clientResult": "Техническое состояние сайта оценено на 100 из 100", "date": "08-08-2026", "status": "done", "responsibility": "executor" }
   ],
   "inProgress": [],
   "nextWeek": [
-    { "task": "Favicon (все форматы)", "owner": "dev", "due": "14-08-2026", "status": "todo" },
-    { "task": "og:image (1200×630)", "owner": "dev", "due": "14-08-2026", "status": "todo" },
-    { "task": "Twitter Card мета-теги", "owner": "dev", "due": "14-08-2026", "status": "todo" },
-    { "task": "Кластеризация семантики", "owner": "dev", "due": "15-08-2026", "status": "todo" },
-    { "task": "Экспорт семантики в Excel", "owner": "dev", "due": "15-08-2026", "status": "todo" }
+    { "task": "Favicon (все форматы)", "clientTask": "Разработка иконки сайта", "due": "14-08-2026", "status": "todo", "responsibility": "executor" },
+    { "task": "og:image (1200×630)", "clientTask": "Подготовка изображений для соцсетей", "due": "14-08-2026", "status": "todo", "responsibility": "executor" },
+    { "task": "Twitter Card мета-теги", "clientTask": "Настройка отображения ссылок в соцсетях", "due": "14-08-2026", "status": "todo", "responsibility": "executor" },
+    { "task": "Кластеризация семантики", "clientTask": "Группировка ключевых запросов", "due": "15-08-2026", "status": "todo", "responsibility": "executor" },
+    { "task": "Экспорт семантики в Excel", "clientTask": "Подготовка списка запросов для согласования", "due": "15-08-2026", "status": "todo", "responsibility": "both" }
   ],
   "metrics": {
-    "Lighthouse SEO": 100,
-    "Проиндексировано страниц": 1,
-    "Позиции по целевым запросам": 0,
-    "Органический трафик": 0
+    "Техническое состояние сайта": 100,
+    "Страниц в поиске": 1,
+    "Позиции по ключевым запросам": 0,
+    "Посетители из поиска": 0
   },
   "semantics": [
     { "Запрос": "дизайн интерьера владимир", "Частотность": "высокая", "Интент": "коммерческий", "Приоритет": "высокий", "Целевая страница": "/design", "Статус": "не начато" },
@@ -59,8 +58,8 @@
     "Дубли контента на гео-страницах — уникализация каждого текста"
   ],
   "recommendations": [
-    "Завершить базовое техническое SEO (favicon, og:image) до конца недели 2",
-    "Начать подготовку текстов для посадочных страниц (услуги, гео)",
-    "Параллельно прорабатывать план миграции на Astro (недели 3-4)"
+    "Завершить оформление сайта (иконка, изображения для соцсетей) до конца недели 2",
+    "Начать подготовку текстов для новых разделов сайта (услуги, города)",
+    "Параллельно прорабатывать запуск обновлённой структуры сайта (недели 3-4)"
   ]
 }

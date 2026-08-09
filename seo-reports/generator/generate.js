@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const reportType = process.argv[2] || 'week';
 const reportId = process.argv[3] || 'week1';
+const mode = process.argv[4] || 'client';
 
 const dataPath = path.resolve(__dirname, '../data', `${reportId}.json`);
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
@@ -31,6 +32,15 @@ const statusLabel = (s) => {
   }
 };
 
+const responsibilityLabel = (r) => {
+  switch ((r || '').toLowerCase()) {
+    case 'executor': return 'Исполнитель';
+    case 'customer': return 'Заказчик';
+    case 'both': return 'Исполнитель, Заказчик';
+    default: return 'Исполнитель';
+  }
+};
+
 const table = (headers, rows) => {
   const head = headers.map((h) => `<th>${h}</th>`).join('');
   const body = rows
@@ -43,13 +53,14 @@ const tasksSection = (title, tasks, extraHeaders = []) => {
   if (!tasks || tasks.length === 0) return '';
   const headers = ['Задача', 'Статус', ...extraHeaders];
   const rows = tasks.map((t) => [
-    t.task,
+    mode === 'client' ? (t.clientTask || t.task) : t.task,
     `<span class="status ${statusClass(t.status)}">${statusLabel(t.status)}</span>`,
     ...extraHeaders.map((h) => {
       switch (h) {
-        case 'Ответственный': return t.owner || '—';
+        case 'Ответственность': return responsibilityLabel(t.responsibility);
         case 'Срок': return t.due || t.date || '—';
-        case 'Результат': return t.result || '—';
+        case 'Результат': return mode === 'client' ? (t.clientResult || t.result || '—') : (t.result || '—');
+        case 'Дата': return t.date || t.due || '—';
         default: return '—';
       }
     }),
@@ -78,14 +89,24 @@ const listSection = (title, items) => {
   return `<div class="section"><h2>${title}</h2><ul>${list}</ul></div>`;
 };
 
-const sections = [
-  tasksSection('Выполнено', data.done, ['Результат', 'Дата']),
-  tasksSection('В процессе', data.inProgress, ['Ответственный']),
-  tasksSection('План на следующую неделю', data.nextWeek, ['Ответственный', 'Срок']),
-  metricsSection(data.metrics),
-];
+const sections = [];
+if (mode === 'client') {
+  sections.push(
+    tasksSection('Выполнено', data.done, ['Результат', 'Ответственность']),
+    tasksSection('В процессе', data.inProgress, ['Ответственность']),
+    tasksSection('План на следующую неделю', data.nextWeek, ['Ответственность', 'Срок']),
+    metricsSection(data.metrics),
+  );
+} else {
+  sections.push(
+    tasksSection('Выполнено', data.done, ['Результат', 'Дата']),
+    tasksSection('В процессе', data.inProgress, ['Ответственный']),
+    tasksSection('План на следующую неделю', data.nextWeek, ['Ответственный', 'Срок']),
+    metricsSection(data.metrics),
+  );
+}
 
-if (data.semantics && data.semantics.length) {
+if (data.semantics && data.semantics.length && mode === 'client') {
   const headers = Object.keys(data.semantics[0]).map((k) =>
     k.replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase())
   );
@@ -93,7 +114,7 @@ if (data.semantics && data.semantics.length) {
   sections.push(`<div class="section"><h2>Семантика</h2>${table(headers, rows)}</div>`);
 }
 
-if (data.competitors && data.competitors.length) {
+if (data.competitors && data.competitors.length && mode !== 'client') {
   const headers = ['Название', 'URL', 'Сильные стороны', 'Что взять'];
   const rows = data.competitors.map((c) => [
     c.name,
@@ -104,7 +125,9 @@ if (data.competitors && data.competitors.length) {
   sections.push(`<div class="section"><h2>Конкуренты</h2>${table(headers, rows)}</div>`);
 }
 
-sections.push(listSection('Риски', data.risks));
+if (mode !== 'client') {
+  sections.push(listSection('Риски', data.risks));
+}
 sections.push(listSection('Рекомендации', data.recommendations));
 
 const title =
@@ -120,7 +143,8 @@ const html = template
 
 const outDir = path.resolve(__dirname, '../reports', reportType);
 fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, `${reportId}.html`);
+const suffix = mode === 'client' ? '' : '-internal';
+const outPath = path.join(outDir, `${reportId}${suffix}.html`);
 fs.writeFileSync(outPath, html, 'utf8');
 
 console.log(`✓ Сгенерировано: ${outPath}`);
