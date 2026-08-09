@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <title>SEO-отчёт · Неделя 2</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F5F3EF;
+      color: #1F1F1F;
+      line-height: 1.6;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+    .report-header {
+      background: #1F1F1F;
+      color: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .report-header h1 { font-size: 28px; margin-bottom: 8px; }
+    .report-header .period { color: #C6A96B; font-size: 15px; }
+    .report-header .badge {
+      display: inline-block;
+      background: #C6A96B;
+      color: #1F1F1F;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .section { margin-bottom: 32px; }
+    .section h2 {
+      font-size: 20px;
+      color: #1F1F1F;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #C6A96B;
+    }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px 16px; text-align: left; font-size: 14px; }
+    th { background: #1F1F1F; color: #fff; font-weight: 600; }
+    tr:nth-child(even) { background: #F9F8F6; }
+    .status { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .status.done { background: #e8f5e9; color: #2e7d32; }
+    .status.wip { background: #fff3e0; color: #ef6c00; }
+    .status.todo { background: #eceff1; color: #455a64; }
+    .status.blocked { background: #fbe9e7; color: #c62828; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .metric {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #e6e6e6;
+    }
+    .metric .value { font-size: 36px; font-weight: 700; color: #1F1F1F; }
+    .metric .label { font-size: 13px; color: #8A8A8A; margin-top: 4px; }
+    .metric .bar {
+      height: 6px; background: #e6e6e6; border-radius: 3px; margin-top: 12px; overflow: hidden;
+    }
+    .metric .bar > div { height: 100%; background: #C6A96B; border-radius: 3px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; font-size: 14px; }
+    .report-footer {
+      text-align: center;
+      color: #8A8A8A;
+      font-size: 12px;
+      padding: 24px 0;
+      border-top: 1px solid #e6e6e6;
+      margin-top: 32px;
+    }
+    @media (max-width: 640px) {
+      .report-header { padding: 24px; }
+      .report-header h1 { font-size: 22px; }
+      table { font-size: 12px; }
+      th, td { padding: 8px 10px; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="report-header">
+      <h1>SEO-отчёт · Неделя 2</h1>
+      <div class="period">11-08-2026 — 17-08-2026</div>
+      <div><span class="badge">Недельный отчёт · Месяц 1</span></div>
+    </div>
+
+    <div class="section"><h2>Выполнено</h2><table><thead><tr><th>Задача</th><th>Статус</th><th>Результат</th><th>Дата</th></tr></thead><tbody><tr><td>Favicon</td><td><span class="status done">Готово</span></td><td>favicon.svg (монохромная П + золото)</td><td>09-08-2026</td></tr><tr><td>og:image (1200×630)</td><td><span class="status done">Готово</span></td><td>og-image.jpg + svg источник</td><td>09-08-2026</td></tr><tr><td>Twitter Card мета-теги</td><td><span class="status done">Готово</span></td><td>summary_large_image + title/desc/image</td><td>09-08-2026</td></tr><tr><td>Убрать #blog из футера</td><td><span class="status done">Готово</span></td><td>Удалён пункт из Footer.tsx</td><td>09-08-2026</td></tr><tr><td>Кластеризация семантики</td><td><span class="status done">Готово</span></td><td>13 кластеров по целевым страницам</td><td>09-08-2026</td></tr><tr><td>Экспорт семантики в Excel</td><td><span class="status done">Готово</span></td><td>seo-semantics-09-08-2026.xlsx (6 листов)</td><td>09-08-2026</td></tr></tbody></table></div>
+
+<div class="section"><h2>План на следующую неделю</h2><table><thead><tr><th>Задача</th><th>Статус</th><th>Ответственный</th><th>Срок</th></tr></thead><tbody><tr><td>H1 дублирование (унификация)</td><td><span class="status todo">Не начато</span></td><td>—</td><td>18-08-2026</td></tr><tr><td>Alt-тексты (Hero, Portfolio)</td><td><span class="status todo">Не начато</span></td><td>—</td><td>18-08-2026</td></tr><tr><td>FAQ подключение в App.tsx</td><td><span class="status todo">Не начато</span></td><td>—</td><td>19-08-2026</td></tr><tr><td>FAQPage JSON-LD</td><td><span class="status todo">Не начато</span></td><td>—</td><td>19-08-2026</td></tr><tr><td>Замена фото портфолио (реальные)</td><td><span class="status todo">Не начато</span></td><td>—</td><td>21-08-2026</td></tr></tbody></table></div>
+<div class="section"><h2>Метрики</h2><div class="metrics"><div class="metric"><div class="value">100</div><div class="label">Техническое состояние сайта</div><div class="bar"><div style="width:100%"></div></div></div><div class="metric"><div class="value">1</div><div class="label">Страниц в поиске</div><div class="bar"><div style="width:1%"></div></div></div><div class="metric"><div class="value">0</div><div class="label">Позиции по ключевым запросам</div><div class="bar"><div style="width:0%"></div></div></div><div class="metric"><div class="value">0</div><div class="label">Посетители из поиска</div><div class="bar"><div style="width:0%"></div></div></div></div></div>
+<div class="section"><h2>Конкуренты</h2><table><thead><tr><th>Название</th><th>URL</th><th>Сильные стороны</th><th>Что взять</th></tr></thead><tbody><tr><td>DariOl</td><td>dariol.ru</td><td>Цены, блог, видео, онлайн-дизайн</td><td>Прайс-лист, контент-маркетинг</td></tr><tr><td>Интеррия</td><td>interriya.ru</td><td>Гарантии, камеры на объекте</td><td>Акцент на гарантии, прозрачность</td></tr><tr><td>Softerdesign</td><td>softerdesign.ru</td><td>Комплектация B2B</td><td>УТП по комплектации</td></tr></tbody></table></div>
+<div class="section"><h2>Риски</h2><ul><li>Задержка миграции на Astro — поэтапный запуск, приоритизация</li><li>Нет контента для посадочных страниц — генерация ИИ + гуманизация</li><li>Медленная индексация новых страниц — sitemap, перелинковка, скорость</li><li>Дубли контента на гео-страницах — уникализация каждого текста</li></ul></div>
+<div class="section"><h2>Рекомендации</h2><ul><li>Согласовать список ключевых запросов (Excel-файл) — после этого начнём внедрение в тексты</li><li>Подготовить реальные фотографии проектов для портфолио (заказчик)</li><li>Проверить отображение ссылки сайта в соцсетях и мессенджерах после публикации</li></ul></div>
+
+    <div class="report-footer">
+      проДЕКОР — SEO-отчёт · Сгенерировано 09.08.2026 · Внутренний документ
+    </div>
+  </div>
+</body>
+</html>
