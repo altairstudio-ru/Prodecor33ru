@@ -40,12 +40,12 @@
     во Владимире и области
   </text>
 
-  <text x="600" y="520" font-family="Verdana, Arial, sans-serif" font-size="26" fill="#999999" text-anchor="middle">
+  <text x="600" y="512" font-family="Verdana, Arial, sans-serif" font-size="26" fill="#999999" text-anchor="middle">
     С 2013 года · Более 80 реализованных проектов
   </text>
 
-  <rect x="455" y="536" width="290" height="48" rx="4" fill="url(#gold)"/>
-  <text x="600" y="567" font-family="Verdana, Arial, sans-serif" font-size="28" fill="#1F1F1F" font-weight="bold" text-anchor="middle">
+  <rect x="455" y="526" width="290" height="48" rx="4" fill="url(#gold)"/>
+  <text x="600" y="557" font-family="Verdana, Arial, sans-serif" font-size="28" fill="#1F1F1F" font-weight="bold" text-anchor="middle">
     prodecor33.ru
   </text>
 </svg>
