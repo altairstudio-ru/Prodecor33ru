@@ -70,11 +70,14 @@ const tasksSection = (title, tasks, extraHeaders = []) => {
 
 const metricsSection = (metrics) => {
   if (!metrics) return '';
+  const BAR_EXCLUDE = ['страниц', 'индекс', 'позиции', 'посетител', 'заявок', 'в поиске'];
   const items = Object.entries(metrics)
     .map(([key, val]) => {
       let value = val;
       let bar = '';
-      if (typeof val === 'number' && val <= 100) {
+      const wantsBar = typeof val === 'number' && val <= 100;
+      const noBar = BAR_EXCLUDE.some((w) => key.toLowerCase().includes(w));
+      if (wantsBar && !noBar) {
         bar = `<div class="bar"><div style="width:${val}%"></div></div>`;
       }
       return `<div class="metric"><div class="value">${value}</div><div class="label">${key}</div>${bar}</div>`;

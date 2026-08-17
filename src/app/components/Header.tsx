@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Phone } from 'lucide-react';
+import { Phone, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
 
 const PHONE_HREF = 'tel:+79004832050';
@@ -11,12 +11,46 @@ const NAV_LINKS = [
   { label: 'Кейсы', href: '#portfolio' },
 ];
 
+const SERVICES_TREE = [
+  {
+    title: 'Дизайн',
+    items: [
+      'Дизайн-проект',
+      'Перепланировка',
+      'Авторский надзор',
+      'Планы и чертежи',
+    ],
+  },
+  {
+    title: 'Материалы',
+    items: [
+      'Декоративная штукатурка',
+      'Краска',
+      'Обои',
+      'Фотообои',
+      'Камины',
+      'Лепнина',
+    ],
+  },
+  {
+    title: 'Ремонт',
+    items: [
+      'Комплексная отделка',
+      'Сантехника',
+      'Электрика',
+      'Водоснабжение',
+      'Инженерные коммуникации',
+    ],
+  },
+];
+
 interface HeaderProps {
   onConsultationClick: () => void;
 }
 
 export function Header({ onConsultationClick }: HeaderProps) {
   const [open, setOpen] = useState(false);
+  const [expandedBranch, setExpandedBranch] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -28,6 +62,9 @@ export function Header({ onConsultationClick }: HeaderProps) {
   }, [open]);
 
   const closeMenu = () => setOpen(false);
+
+  const toggleBranch = (title: string) =>
+    setExpandedBranch((current) => (current === title ? null : title));
 
   return (
     <>
@@ -137,6 +174,43 @@ export function Header({ onConsultationClick }: HeaderProps) {
               </a>
             ))}
           </nav>
+
+          <div className="mt-4 border-t border-white/10 pt-4">
+            <p className="mb-2 text-xs uppercase tracking-widest text-[#C6A96B]">
+              Полный комплекс услуг
+            </p>
+            <div className="flex flex-col gap-1">
+              {SERVICES_TREE.map((branch) => (
+                <div key={branch.title}>
+                  <button
+                    type="button"
+                    onClick={() => toggleBranch(branch.title)}
+                    aria-expanded={expandedBranch === branch.title}
+                    className="flex w-full items-center justify-between rounded-sm py-2.5 text-base text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+                  >
+                    {branch.title}
+                    <ChevronDown
+                      className={`h-4 w-4 text-white/50 transition-transform ${expandedBranch === branch.title ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  {expandedBranch === branch.title && (
+                    <div className="mb-1 flex flex-col gap-0.5 border-l border-[#C6A96B]/40 pl-3">
+                      {branch.items.map((item) => (
+                        <a
+                          key={item}
+                          href="#services"
+                          onClick={closeMenu}
+                          className="rounded-sm py-1.5 text-sm text-white/60 transition-colors hover:text-[#C6A96B]"
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="mt-auto space-y-4 border-t border-white/10 pt-8">
             <a href={PHONE_HREF} className="block text-lg text-[#5BA3F5]">
