@@ -4,10 +4,15 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
+import ContactForm from '../components/ContactForm.astro';
 import Trust from '../components/Trust.astro';
+import FAQ from '../components/FAQ.astro';
+import PortfolioNew from '../components/PortfolioNew.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import Footer from '../components/Footer.astro';
+import ConsultationModal from '../components/ConsultationModal.astro';
+import Toaster from '../components/Toaster.astro';
 ---
 <Layout>
   <Header />
@@ -15,9 +20,18 @@ import Footer from '../components/Footer.astro';
     <Hero />
     <Services />
     <Process />
+    <ContactForm />
     <Trust />
+    <FAQ />
+    <PortfolioNew />
     <Testimonials />
     <FinalCTA />
   </main>
   <Footer />
+  <ConsultationModal />
+  <Toaster />
 </Layout>
+
+<script>
+  import '../scripts/main';
+</script>

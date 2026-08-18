@@ -36,7 +36,7 @@ const testimonials = [
           <div class="bg-white p-8 rounded-xl border border-[#E6E6E6] shadow-sm hover:shadow-md transition-shadow">
             <div class="flex gap-1 mb-4">
               {
-                Array.from({ length: testimonial.rating }).map((_, i) => (
+                Array.from({ length: testimonial.rating }).map(() => (
                   <Icon name="star" class="w-5 h-5 fill-[#C6A96B] text-[#C6A96B]" />
                 ))
               }

@@ -1,0 +1,100 @@
+---
+import Icon from './Icon.astro';
+
+const PROJECT_TYPES = [
+  { value: 'design', label: 'Дизайн' },
+  { value: 'renovation', label: 'Ремонт' },
+  { value: 'full', label: 'Под ключ' },
+  { value: 'supervision', label: 'Надзор' },
+];
+---
+<div id="consultation-modal" data-consultation-modal class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
+  <div data-consultation-close data-modal-cancel class="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
+
+  <div role="dialog" aria-modal="true" aria-labelledby="consultation-modal-title" class="relative z-10 w-full max-w-lg bg-[#F5F3EF] rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between p-6 pb-0">
+      <div>
+        <h3 id="consultation-modal-title" class="text-2xl font-semibold text-[#1F1F1F]">Получить консультацию</h3>
+        <p class="text-sm text-[#8A8A8A] mt-1">
+          Обсудим ваш проект и ответим на вопросы
+        </p>
+      </div>
+      <button
+        type="button"
+        data-consultation-close
+        class="p-2 -mr-2 rounded-lg text-[#8A8A8A] hover:text-[#1F1F1F] hover:bg-black/5 transition-colors"
+        aria-label="Закрыть"
+      >
+        <Icon name="x" class="w-5 h-5" />
+      </button>
+    </div>
+
+    <form data-lead-form data-source="Модальное окно" novalidate class="p-6 pt-5 space-y-5">
+      <input type="hidden" name="projectType" value="design" />
+      <div>
+        <label for="modal-name" class="block text-sm font-medium text-[#1F1F1F] mb-2">
+          Ваше имя
+        </label>
+        <input
+          type="text"
+          id="modal-name"
+          name="name"
+          class="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors text-[#1F1F1F]"
+          placeholder="Иван Петров"
+          autocomplete="name"
+        />
+      </div>
+
+      <div>
+        <label for="modal-phone" class="block text-sm font-medium text-[#1F1F1F] mb-2">
+          Телефон
+        </label>
+        <input
+          type="tel"
+          id="modal-phone"
+          name="phone"
+          data-phone-mask
+          class="w-full px-4 py-3 bg-white border border-[#D1D1D1] rounded-lg focus:outline-none focus:border-[#C6A96B] transition-colors text-[#1F1F1F]"
+          placeholder="+7 (___) ___-__-__"
+          autocomplete="tel"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-[#1F1F1F] mb-3">Тип проекта</label>
+        <div class="grid grid-cols-2 gap-3">
+          {
+            PROJECT_TYPES.map((option) => (
+              <button
+                type="button"
+                data-project-type={option.value}
+                class="px-4 py-3 rounded-lg transition-all text-sm bg-transparent border border-[#D1D1D1] text-[#1F1F1F] hover:border-[#C6A96B] hover:bg-white/50"
+              >
+                {option.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        data-lead-submit
+        class="w-full py-4 bg-[#C6A96B] text-white rounded-lg hover:bg-[#B39960] transition-colors font-medium inline-flex items-center justify-center gap-2 shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        <span data-submit-label class="inline-flex items-center gap-2">
+          Получить консультацию
+          <Icon name="arrow-right" class="w-5 h-5" />
+        </span>
+        <span data-submit-loading class="hidden items-center gap-3">
+          <span class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          Отправка...
+        </span>
+      </button>
+
+      <p class="text-xs text-[#8A8A8A] text-center">
+        Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+      </p>
+    </form>
+  </div>
+</div>
