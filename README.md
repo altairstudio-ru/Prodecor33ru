@@ -250,7 +250,8 @@ pnpm preview         # astro preview
   "outputDirectory": "dist",
   "framework": "astro",
   "redirects": [
-    { "source": "/", "has": [{ "type": "host", "value": "prodecor33ru.vercel.app" }], "destination": "https://prodecor33.ru/", "permanent": true }
+    { "source": "/", "has": [{ "type": "host", "value": "prodecor33ru.vercel.app" }], "destination": "https://prodecor33.ru/", "permanent": true },
+    { "source": "/:path*", "has": [{ "type": "host", "value": "prodecor33ru.vercel.app" }], "destination": "https://prodecor33.ru/:path*", "permanent": true }
   ]
 }
 ```
@@ -278,7 +279,7 @@ pnpm preview         # astro preview
 - [ ] Подключить `@astrojs/sitemap` в `astro.config.mjs` (установлен, но не активен)
 - [ ] Заменить Unsplash-заглушки на реальные фото проектов (в `PortfolioNew.astro` — 2 внешних изображения)
 - [ ] Доделать ссылки на соцсети (Instagram, Max — сейчас `href: '#'`, «скоро»)
-- [ ] Яндекс.Вебмастер — подтвердить сайт в интерфейсе
+- [ ] Яндекс.Вебмастер / GSC — сайт добавлен, проверить статус подтверждения и проиндексированные страницы
 
 ---
 
