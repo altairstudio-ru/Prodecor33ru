@@ -4,4 +4,4 @@ Allow: /
 # SEO-отчёты клиенту — не для индексации (Vercel)
 Disallow: /seo-reports/
 
-Sitemap: https://prodecor33.ru/sitemap.xml
+Sitemap: https://prodecor33.ru/sitemap-index.xml

@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+
+const aboutServices = [
+  {
+    icon: 'palette',
+    title: 'Дизайн-проект',
+    description:
+      'Разработка концепции, планировка, подбор материалов и декора для создания уникального пространства',
+  },
+  {
+    icon: 'hammer',
+    title: 'Ремонт под ключ',
+    description:
+      'Полный цикл ремонтных работ от демонтажа до финишной отделки с соблюдением всех технологий',
+  },
+  {
+    icon: 'sofa',
+    title: 'Комплектация',
+    description:
+      'Подбор и закупка мебели, освещения, текстиля и аксессуаров для завершения интерьера',
+  },
+  {
+    icon: 'clipboard-check',
+    title: 'Авторский надзор',
+    description:
+      'Контроль качества на каждом этапе, координация подрядчиков, соблюдение сроков и бюджета',
+  },
+];
+
+const assortment = [
+  'Обои',
+  'Фотообои по индивидуальным размерам',
+  'Плитка',
+  'Лепной декор',
+  'Электрокамины',
+  'Фрески',
+  'Напольные покрытия',
+  'Люстры',
+  'Картины на холсте',
+];
+
+const facts = [
+  { icon: 'map-pin', label: 'Адрес студии', value: 'г. Владимир, ул. Луначарского, 23 (1 этаж)' },
+  { icon: 'clock', label: 'График работы', value: 'Пн–Пт, 10:00–18:00' },
+  { icon: 'phone', label: 'Телефон', value: '+7 (900) 483-20-50' },
+];
+---
+<section id="about" class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-sm uppercase tracking-[0.2em] text-[#C6A96B] mb-4 inline-block">О студии</span>
+      <h2 class="text-4xl lg:text-5xl text-[#1F1F1F] mb-4">Студия «ПроДекор33»</h2>
+      <p class="text-lg text-[#8A8A8A] max-w-3xl mx-auto leading-relaxed">
+        ПроДекор33 — студия интерьера из Владимира, которая объединяет шоурум отделочных
+        материалов, разработку дизайн-проектов и ремонт под ключ. Ведём проект от первой
+        идеи до полной реализации, чтобы результат был целостным и качественным.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {
+        aboutServices.map((service) => (
+          <div class="p-8 bg-white rounded-xl border border-[#E6E6E6] shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-[#C6A96B]/10 rounded-full flex items-center justify-center mb-6">
+              <Icon name={service.icon} class="w-6 h-6 text-[#C6A96B]" />
+            </div>
+            <h3 class="text-xl text-[#1F1F1F] mb-3">{service.title}</h3>
+            <p class="text-sm text-[#8A8A8A] leading-relaxed">{service.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 mb-16 items-stretch">
+      <div class="p-8 bg-[#F5F3EF] rounded-xl border border-[#E6E6E6]">
+        <h3 class="text-2xl text-[#1F1F1F] mb-6">Ассортимент материалов</h3>
+        <p class="text-[#8A8A8A] mb-6">
+          В шоуруме представлены проверенные позиции для отделки — подбираем под проект
+          и помогаем с выбором.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {
+            assortment.map((item) => (
+              <span class="px-4 py-2 rounded-full bg-white border border-[#E6E6E6] text-sm text-[#1F1F1F]">
+                {item}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="p-8 bg-[#1F1F1F] rounded-xl text-white flex flex-col justify-center">
+        <div class="w-12 h-12 bg-[#C6A96B]/15 rounded-full flex items-center justify-center mb-6">
+          <Icon name="award" class="w-6 h-6 text-[#C6A96B]" />
+        </div>
+        <h3 class="text-2xl mb-3">Мастер-декоратор</h3>
+        <p class="text-[#B5B5B5] leading-relaxed">
+          В команде — мастер-декоратор по венецианской штукатурке с опытом более 15 лет.
+          Сложные декоративные покрытия выполняются вручную с вниманием к деталям.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      {
+        facts.map((fact) => (
+          <div class="flex items-center gap-4 p-6 bg-white rounded-xl border border-[#E6E6E6]">
+            <div class="w-11 h-11 bg-[#C6A96B]/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <Icon name={fact.icon} class="w-5 h-5 text-[#C6A96B]" />
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs uppercase tracking-widest text-[#8A8A8A] mb-1">{fact.label}</div>
+              <div class="text-[#1F1F1F] font-medium">{fact.value}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
