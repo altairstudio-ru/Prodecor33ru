@@ -1,7 +1,7 @@
 {
-  "buildCommand": "vite build --base / && mkdir -p dist/seo-reports && cp -r seo-reports/reports/* dist/seo-reports/",
+  "buildCommand": "astro build && mkdir -p .vercel/output/static/seo-reports && cp -r seo-reports/reports/* .vercel/output/static/seo-reports/",
   "outputDirectory": "dist",
-  "framework": "vite",
+  "framework": "astro",
   "redirects": [
     {
       "source": "/",

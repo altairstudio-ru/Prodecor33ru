@@ -1,0 +1,167 @@
+---
+import '../styles/index.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'проДЕКОР — Дизайн интерьера и ремонт под ключ во Владимире',
+  description = 'Дизайн-студия проДЕКОР во Владимире: дизайн интерьера, ремонт под ключ, комплектация и авторский надзор. Работаем с 2013 года. Более 80 реализованных проектов.',
+  canonical = 'https://prodecor33.ru/',
+  ogImage = 'https://prodecor33.ru/og-image.jpg',
+} = Astro.props;
+
+const ogDescription = description.length > 197 ? description.slice(0, 194) + '…' : description;
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'проДЕКОР',
+  description: 'Дизайн интерьера и ремонт под ключ во Владимире и области',
+  url: 'https://prodecor33.ru',
+  telephone: '+79004832050',
+  email: 'info@prodecor33.ru',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Владимир',
+    streetAddress: 'ул. Луначарского, 23',
+    addressCountry: 'RU',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 56.1291, longitude: 40.407 },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '09:00',
+    closes: '19:00',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Владимир' },
+    { '@type': 'AdministrativeArea', name: 'Владимирская область' },
+  ],
+  foundingDate: '2013',
+  priceRange: '₽₽₽',
+  image: 'https://prodecor33.ru/og-image.jpg',
+  sameAs: ['https://vk.ru/prodecor_33', 'https://t.me/ProDecor_33'],
+};
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Сколько стоят ваши услуги?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Стоимость дизайн-проекта от 3000 руб./м², ремонта под ключ — от 25 000 руб./м². Точная цена зависит от площади объекта, сложности планировочных решений и выбранных материалов.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Какие сроки реализации проекта?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Дизайн-проект разрабатывается в течение 4–8 недель, ремонтные работы занимают от 3 до 6 месяцев в зависимости от объёма. Сроки фиксируются в договоре.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Что входит в услугу "ремонт под ключ"?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Полный цикл работ: демонтаж, черновая и чистовая отделка, электрика, сантехника, установка дверей, напольных покрытий. По желанию — комплектация мебелью и декором.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Как организован процесс работы?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'После заключения договора назначается персональный менеджер проекта. Вы получаете еженедельные отчёты о ходе работ, фото- и видеофиксацию.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'С какими объектами вы работаете?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Квартиры, загородные дома, коммерческие помещения (офисы, салоны, шоурумы), апартаменты. Работаем преимущественно во Владимире и Владимирской области.',
+      },
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="yandex-verification" content="0ddf29712719f9a2" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/og-image.jpg" />
+
+    <script is:inline>
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        k = e.createElement(t), (a = e.getElementsByTagName(t)[0]), (k.async = 1), (k.src = r), a.parentNode.insertBefore(k, a);
+      })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=111010795', 'ym');
+      ym(111010795, 'init', {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        ecommerce: 'dataLayer',
+        referrer: document.referrer,
+        url: location.href,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="проДЕКОР — дизайн интерьера и ремонт под ключ во Владимире и области" />
+    <meta property="og:site_name" content="проДЕКОР" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="проДЕКОР — дизайн интерьера и ремонт под ключ во Владимире и области" />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </head>
+  <body>
+    <slot />
+    <noscript>
+      <div>
+        <img src="https://mc.yandex.ru/watch/111010795" style="position:absolute; left:-9999px;" alt="" />
+      </div>
+    </noscript>
+  </body>
+</html>
