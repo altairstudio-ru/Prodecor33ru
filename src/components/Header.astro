@@ -1,0 +1,180 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+const PHONE_HREF = 'tel:+79004832050';
+
+const NAV_LINKS = [
+  { label: 'О нас', href: '#about' },
+  { label: 'Услуги', href: '#services' },
+  { label: 'Кейсы', href: '#portfolio' },
+];
+
+const SERVICES_TREE = [
+  {
+    title: 'Дизайн',
+    items: ['Дизайн-проект', 'Перепланировка', 'Авторский надзор', 'Планы и чертежи'],
+  },
+  {
+    title: 'Материалы',
+    items: ['Декоративная штукатурка', 'Краска', 'Обои', 'Фотообои', 'Камины', 'Лепнина'],
+  },
+  {
+    title: 'Ремонт',
+    items: ['Комплексная отделка', 'Сантехника', 'Электрика', 'Водоснабжение', 'Инженерные коммуникации'],
+  },
+];
+---
+<header id="site-header" class="fixed top-0 left-0 right-0 bg-[#1F1F1F]/50 backdrop-blur-md z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="flex items-center justify-between gap-3 lg:hidden">
+      <button
+        type="button"
+        data-menu-open
+        class="flex-shrink-0 p-2 -ml-2 rounded-md text-white/90 hover:text-white"
+        aria-label="Открыть меню"
+      >
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0" width="22" height="2" rx="1" fill="currentColor" />
+          <rect y="7" width="22" height="2" rx="1" fill="currentColor" />
+          <rect y="14" width="22" height="2" rx="1" fill="currentColor" />
+        </svg>
+      </button>
+
+      <a href="#top" class="flex-1 min-w-0 flex justify-center">
+        <Logo class="w-[140px] sm:w-[160px] h-9 sm:h-10 max-w-full text-white" />
+      </a>
+
+      <a
+        href={PHONE_HREF}
+        class="flex-shrink-0 p-2 -mr-2 text-[#5BA3F5] hover:text-[#7DBCFF] transition-colors"
+        aria-label="Позвонить: +7 (900) 483-20-50"
+      >
+        <Icon name="phone" class="w-5 h-5" width={1.75} />
+      </a>
+    </div>
+
+    <div class="hidden lg:flex items-center justify-between gap-6">
+      <a href="#top" class="flex-shrink-0 flex flex-col items-center gap-0">
+        <Logo class="w-[260px] h-14 max-w-full text-white" />
+        <span class="text-[#C6A96B] text-[0.65rem] tracking-[0.18em] uppercase font-light text-center leading-none">
+          От проекта до реализации
+        </span>
+      </a>
+
+      <nav class="flex items-center gap-8 xl:gap-10 flex-1 justify-center">
+        {
+          NAV_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm text-white/75 hover:text-white transition-colors tracking-wide whitespace-nowrap"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="flex-shrink-0 flex flex-col items-end gap-1.5">
+        <a
+          href={PHONE_HREF}
+          class="text-[#5BA3F5] hover:text-[#7DBCFF] transition-colors text-sm font-medium tracking-wide whitespace-nowrap pr-2"
+        >
+          +7 (900) 483-20-50
+        </a>
+        <button
+          type="button"
+          data-open-consultation
+          class="px-5 py-2 border border-white/30 text-white rounded-sm hover:bg-white/10 hover:border-white/50 transition-all text-xs tracking-widest uppercase backdrop-blur-sm whitespace-nowrap"
+        >
+          Консультация
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" data-mobile-menu class="fixed inset-0 z-[100] lg:hidden hidden">
+  <div data-menu-close class="absolute inset-0 bg-black/70" aria-hidden="true" />
+  <aside class="relative z-10 flex h-full w-full flex-col bg-[#1F1F1F] p-6">
+    <div class="mb-6 flex items-center justify-between gap-4">
+      <Logo class="h-auto w-[180px] flex-shrink-0 text-white" />
+      <button
+        type="button"
+        data-menu-close
+        class="flex-shrink-0 p-2 text-2xl leading-none text-white/80 hover:text-white"
+        aria-label="Закрыть меню"
+      >
+        ✕
+      </button>
+    </div>
+
+    <p class="mb-8 text-center text-sm uppercase tracking-widest text-[#C6A96B]">
+      От проекта до реализации
+    </p>
+
+    <nav class="flex flex-col gap-1">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            data-menu-close
+            class="rounded-sm py-3 text-lg text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-4 border-t border-white/10 pt-4">
+      <p class="mb-2 text-xs uppercase tracking-widest text-[#C6A96B]">
+        Полный комплекс услуг
+      </p>
+      <div class="flex flex-col gap-1">
+        {
+          SERVICES_TREE.map((branch) => (
+            <div>
+              <button
+                type="button"
+                data-tree-toggle
+                aria-expanded="false"
+                class="flex w-full items-center justify-between rounded-sm py-2.5 text-base text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {branch.title}
+                <Icon name="chevron-down" class="h-4 w-4 text-white/50 transition-transform" />
+              </button>
+              <div data-tree-content class="hidden mb-1 flex flex-col gap-0.5 border-l border-[#C6A96B]/40 pl-3">
+                {
+                  branch.items.map((item) => (
+                    <a
+                      href="#services"
+                      data-menu-close
+                      class="rounded-sm py-1.5 text-sm text-white/60 transition-colors hover:text-[#C6A96B]"
+                    >
+                      {item}
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-auto space-y-4 border-t border-white/10 pt-8">
+      <a href={PHONE_HREF} class="block text-lg text-[#5BA3F5]">
+        +7 (900) 483-20-50
+      </a>
+      <button
+        type="button"
+        data-open-consultation
+        data-menu-close
+        class="w-full rounded-sm bg-[#C6A96B] py-3 text-sm font-medium uppercase tracking-widest text-black"
+      >
+        Консультация
+      </button>
+    </div>
+  </aside>
+</div>

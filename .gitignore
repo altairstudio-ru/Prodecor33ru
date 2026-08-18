@@ -1,4 +1,5 @@
 .vercel
+.astro
 Архив.zip
 *.zip
 .env*

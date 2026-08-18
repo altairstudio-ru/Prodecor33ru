@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+
+const benefits = [
+  { icon: 'award', value: '10+', label: 'лет опыта', description: 'Более 120 завершённых проектов в премиум-сегменте' },
+  { icon: 'file-check', value: '100%', label: 'по договору', description: 'Все работы выполняются строго по договору с гарантиями' },
+  { icon: 'shield', value: 'Прозрачность', label: 'в сметах', description: 'Детальные сметы без скрытых платежей и неожиданных расходов' },
+  { icon: 'clock', value: 'Сроки', label: 'и качество', description: 'Соблюдаем согласованные сроки с постоянным контролем качества' },
+];
+---
+<section class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl text-[#1F1F1F] mb-4">Почему нам доверяют</h2>
+      <p class="text-lg text-[#8A8A8A] max-w-2xl mx-auto">
+        Работаем с полной ответственностью, прозрачностью и персональным подходом к каждому проекту
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {
+        benefits.map((benefit) => (
+          <div class="text-center p-8 bg-white rounded-xl border border-[#E6E6E6] shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-14 h-14 bg-[#C6A96B]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Icon name={benefit.icon} class="w-7 h-7 text-[#C6A96B]" />
+            </div>
+            <div class="text-3xl font-semibold text-[#1F1F1F] mb-2">{benefit.value}</div>
+            <div class="text-lg text-[#1F1F1F] font-medium mb-3">{benefit.label}</div>
+            <p class="text-sm text-[#8A8A8A]">{benefit.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
